@@ -19,13 +19,6 @@ Player.prototype = {
       ctx.fillStyle = "#000";
       ctx.fillRect(this.pos.x * width + offset, this.pos.y   * width + offset, 40, 40);
     }
-  },
-
-  getPlayer: function(){
-    return {
-      pos: {x: this.pos.x + 1, y: this.pos.y + 1},
-      team: this.team
-    };
   }
 };
 

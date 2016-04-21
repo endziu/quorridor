@@ -36,7 +36,7 @@ var Game = React.createClass({
 
   syncGameState(newState) {
     var self = this;
-    var s = newState || this.props;
+    var s = newState || this.props;    
   },
   
   mouseUpListener() {
@@ -52,11 +52,9 @@ var Game = React.createClass({
 
       if (e.which === 1) {
         self.props.emit('click', {pos: clickPos, button: "LEFT"});
-      } else if (e.which ===3) {
+      } else if (e.which === 3) {
         self.props.emit('click', {pos: clickPos, button: "RIGHT"});
       }
-
-
 
     }, false);
   },
@@ -80,7 +78,17 @@ var Game = React.createClass({
     this.bodies.map(function(body) {
       body.draw(ctx);
     });
-  }
+  },
+
+  move(team, dir) {
+    console.log('moving: ',team, dir);
+    this.props.emit('move', {team:team, dir:dir});
+  },
+
+  placeWall(team,type,pos) {
+    console.log('placing wall: ', type, pos);
+    this.props.emit('wall', {team:team, type: type, pos: pos});
+  },
 
 });
 

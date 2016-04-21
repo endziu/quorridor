@@ -30,8 +30,18 @@ io.sockets.on('connection', function(socket) {
     io.sockets.emit('update', gameState);
   }
 
+  var handleMove = function(payload) {
+    console.log(payload);
+  }
+
+  var handleWall = function(payload) {
+    console.log(payload);
+  }
+
   socket.once('disconnect', handleDisconnect);
   socket.on('click', handleClick);
+  socket.on('move', handleMove);
+  socket.on('wall', handleWall);
 
   //add socket to connections array
   connections.push(socket);

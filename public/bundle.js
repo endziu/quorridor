@@ -28057,6 +28057,16 @@
 	    this.bodies.map(function (body) {
 	      body.draw(ctx);
 	    });
+	  },
+
+	  move: function move(team, dir) {
+	    console.log('moving: ', team, dir);
+	    this.props.emit('move', { team: team, dir: dir });
+	  },
+
+	  placeWall: function placeWall(team, type, pos) {
+	    console.log('placing wall: ', type, pos);
+	    this.props.emit('wall', { team: team, type: type, pos: pos });
 	  }
 
 	});
@@ -28128,13 +28138,6 @@
 	      ctx.fillStyle = "#000";
 	      ctx.fillRect(this.pos.x * width + offset, this.pos.y * width + offset, 40, 40);
 	    }
-	  },
-
-	  getPlayer: function getPlayer() {
-	    return {
-	      pos: { x: this.pos.x + 1, y: this.pos.y + 1 },
-	      team: this.team
-	    };
 	  }
 	};
 
