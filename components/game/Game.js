@@ -34,7 +34,7 @@ var Game = React.createClass({
   
   mouseUpListener() {
     this._canvas.addEventListener('mouseup', function(e) {
-      console.log(e.target);
+      console.log(e.clientX - e.target.offsetLeft, e.clientY - e.target.offsetTop);
     }, false);
   },
 

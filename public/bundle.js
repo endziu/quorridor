@@ -28003,7 +28003,7 @@
 
 	  mouseUpListener: function mouseUpListener() {
 	    this._canvas.addEventListener('mouseup', function (e) {
-	      console.log(e.target);
+	      console.log(e.clientX - e.target.offsetLeft, e.clientY - e.target.offsetTop);
 	    }, false);
 	  },
 
@@ -28041,22 +28041,18 @@
 	var Board = function Board() {
 	  this.gameSize = { x: 9, y: 9 };
 	  this.offset = 5;
-	  this.fieldSize = 80;
+	  this.gridSize = 80;
+	  this.fieldSize = 70;
 	};
 
 	Board.prototype = {
 	  draw: function draw(ctx) {
 	    for (var i = 0; i < this.gameSize.x; i++) {
 	      for (var j = 0; j < this.gameSize.y; j++) {
-	        var x = i * this.fieldSize + this.offset;
-	        var y = j * this.fieldSize + this.offset;
-	        var dispX = i + 1;
-	        var dispY = j + 1;
+	        var x = i * this.gridSize + this.offset;
+	        var y = j * this.gridSize + this.offset;
 	        ctx.fillStyle = "#aaa";
-	        ctx.fillRect(x, y, 70, 70);
-	        // ctx.fillStyle = "#000";
-	        // ctx.font = "12px serif";
-	        // ctx.fillText(dispX + "," + dispY, x+50, y+68);
+	        ctx.fillRect(x, y, this.fieldSize, this.fieldSize);
 	      }
 	    }
 	  }

@@ -27,11 +27,11 @@ body {
     background-color: red;
 }
 
-#canvas {
-    border: solid 1px black;
-}
-
 .game-container {
     width: 720px;
     margin: 0 auto;
+}
+
+#canvas {
+    border: solid 1px black;
 }
