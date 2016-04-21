@@ -20,8 +20,8 @@ var Game = React.createClass({
   prepareCanvas() {
     this._canvas = document.getElementById('canvas');
     this._context = this._canvas.getContext('2d');
-    this._canvas.setAttribute('height', 720);
-    this._canvas.setAttribute('width', 720);
+    this._canvas.setAttribute('height', 730);
+    this._canvas.setAttribute('width', 730);
     this._canvas.oncontextmenu = function (e) {
       e.preventDefault();
     };    

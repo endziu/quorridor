@@ -1,6 +1,6 @@
 var Board = function() {
   this.gameSize = {x:9, y:9};
-  this.offset = 5;
+  this.offset = 10;
   this.gridSize = 80;
   this.fieldSize = 70;
 } 

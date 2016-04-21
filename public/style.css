@@ -5,9 +5,10 @@ body {
 }
 
 .header {
-    width: 720px;
-    margin: 0 auto;
+    width: 730px;
+    margin: 5px auto;
     overflow: auto;
+    background-color: LightGoldenRodYellow;
 }
 
 .title {
@@ -23,6 +24,7 @@ body {
     padding: 0;
     display: block;
     float: left;
+    margin: 1px 0px 0px 1px;
 }
 
 #connection-status.connected {
@@ -34,11 +36,12 @@ body {
 }
 
 .game-container {
-    width: 724px;
+    width: 730px;
     margin: 0 auto;
     clear: left;
+    background-color: Cornsilk;
 }
 
 #canvas {
-    border: solid 1px black;
+    
 }
