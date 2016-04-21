@@ -4,7 +4,7 @@ var Game = React.createClass({
 
   render() {
     return (
-      <canvas id='canvas'/>
+      <canvas id='canvas' className='game' />
     );
   },
 

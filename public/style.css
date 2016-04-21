@@ -4,6 +4,11 @@ body {
     margin: 0;
 }
 
+#title {
+    margin: 20px;
+    display: block;
+}
+
 #connection-status {
     height: 35px;
     width: 35px;
@@ -22,25 +27,11 @@ body {
     background-color: red;
 }
 
-
 #canvas {
     border: solid 1px black;
 }
 
-.info {
-
-}
-
-.controls {
-}
-
 .game {
-    background-color: cyan;
+    background-color: red;
 }
 
-.line-separator{
-    height:1px;
-    width: 450px;
-    background:#717171;
-    border-bottom:1px solid #313030;
-}

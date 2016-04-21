@@ -20467,7 +20467,6 @@
 
 	  componentWillMount: function componentWillMount() {
 	    this.socket = io('localhost:3000');
-	    //this.socket = io('http://37.233.102.144:3000');
 	    this.socket.on('connect', this.connect);
 	    this.socket.on('disconnect', this.disconnect);
 	  },
@@ -20477,10 +20476,6 @@
 	  },
 
 	  connect: function connect() {
-	    var member = sessionStorage.member ? JSON.parse(sessionStorage.member) : null;
-	    if (member) {
-	      this.emit('join', member.name);
-	    }
 	    this.setState({ status: 'connected' });
 	  },
 
@@ -27955,19 +27950,11 @@
 	      'header',
 	      null,
 	      React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'h1',
-	          null,
-	          'quorridor'
-	        )
+	        'h1',
+	        { id: 'title' },
+	        'a game...'
 	      ),
-	      React.createElement(
-	        'div',
-	        null,
-	        React.createElement('span', { id: 'connection-status', className: this.props.status })
-	      )
+	      React.createElement('span', { id: 'connection-status', className: this.props.status })
 	    );
 	  }
 
@@ -27987,7 +27974,7 @@
 	  displayName: 'Game',
 
 	  render: function render() {
-	    return React.createElement('canvas', { id: 'canvas' });
+	    return React.createElement('canvas', { id: 'canvas', className: 'game' });
 	  },
 
 	  componentDidMount: function componentDidMount() {
