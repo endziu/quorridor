@@ -14,7 +14,11 @@ var Game = React.createClass({
   componentDidMount() {
     this.prepareCanvas();
     this.gameSize = { x: this._canvas.width, y: this._canvas.height };
-    this.bodies = [new Board()];
+    this.bodies = [
+      new Board(), 
+      new Player('white', {x: 4, y: 8}),
+      new Player('black', {x: 4, y: 0})
+    ];
     this.syncGameState();
     this.mouseUpListener();
     this.loop();

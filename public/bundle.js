@@ -27956,7 +27956,7 @@
 	      { className: 'header' },
 	      React.createElement('span', { id: 'connection-status', className: this.props.status }),
 	      React.createElement(
-	        'h1',
+	        'h2',
 	        { className: 'title' },
 	        'a game...'
 	      ),
@@ -27998,7 +27998,7 @@
 	  componentDidMount: function componentDidMount() {
 	    this.prepareCanvas();
 	    this.gameSize = { x: this._canvas.width, y: this._canvas.height };
-	    this.bodies = [new Board()];
+	    this.bodies = [new Board(), new Player('white', { x: 4, y: 8 }), new Player('black', { x: 4, y: 0 })];
 	    this.syncGameState();
 	    this.mouseUpListener();
 	    this.loop();
@@ -28106,6 +28106,39 @@
 /***/ function(module, exports) {
 
 	"use strict";
+
+	var Player = function Player(team, pos) {
+	  this.team = team;
+	  this.pos = pos;
+	  this.numWalls = 8;
+	};
+
+	Player.prototype = {
+	  update: function update() {
+	    //nothing atm...
+	  },
+	  draw: function draw(ctx) {
+	    var offset = 25;
+	    var width = 80;
+	    if (this.team === "white") {
+	      ctx.fillStyle = "#fff";
+	      ctx.fillRect(this.pos.x * width + offset, this.pos.y * width + offset, 40, 40);
+	    }
+	    if (this.team === "black") {
+	      ctx.fillStyle = "#000";
+	      ctx.fillRect(this.pos.x * width + offset, this.pos.y * width + offset, 40, 40);
+	    }
+	  },
+
+	  getPlayer: function getPlayer() {
+	    return {
+	      pos: { x: this.pos.x + 1, y: this.pos.y + 1 },
+	      team: this.team
+	    };
+	  }
+	};
+
+	module.exports = Player;
 
 /***/ },
 /* 209 */

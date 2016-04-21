@@ -15,7 +15,7 @@ var Header = React.createClass({
     return (
       <div className="header">
         <span id="connection-status" className={this.props.status}></span>
-        <h1 className="title">a game...</h1>
+        <h2 className="title">a game...</h2>
         <p className="info">User: {this.props.currentUser} | Team: {this.props.currentTeam} | Turn: {this.props.turn}</p>
       </div>
     );

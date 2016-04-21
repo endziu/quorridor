@@ -24,6 +24,7 @@ io.sockets.on('connection', function(socket) {
   var handleDisconnect = function() {
     console.log('Disconnecting...', socket.id);
     connections.splice(connections.indexOf(socket), 1);
+    gameState.clicks = [];
     socket.disconnect();
   };
 
