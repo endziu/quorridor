@@ -1,9 +1,6 @@
 //import dependecies
 var express = require('express');
 var app = express();
-var rmId = require('./components/utils/rmObjById');
-var rmName = require('./components/utils/rmObjByName');
-var isInArray = require('./components/utils/isInArray');
 
 //use public folder to serve static content
 app.use(express.static('./public'));
