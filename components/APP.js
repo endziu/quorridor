@@ -13,7 +13,6 @@ var APP = React.createClass({
 
   componentWillMount() {
     this.socket = io('localhost:3000');
-    //this.socket = io('http://37.233.102.144:3000');
     this.socket.on('connect', this.connect);
     this.socket.on('disconnect', this.disconnect);
   },
@@ -23,10 +22,6 @@ var APP = React.createClass({
   },
 
   connect() {
-    var member = (sessionStorage.member) ? JSON.parse(sessionStorage.member) : null;
-    if(member) {
-      this.emit('join', member.name);
-    }
     this.setState({ status: 'connected' });
   },
 
