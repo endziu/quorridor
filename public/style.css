@@ -4,9 +4,10 @@ body {
     margin: 0;
 }
 
-#title {
-    margin: 20px;
-    display: block;
+.header {
+    width: 720px;
+    margin: 10px auto;
+    padding: 5px;
 }
 
 #connection-status {
@@ -15,7 +16,6 @@ body {
     border-radius: 50%;
     -webkit-border-radius: 50%;
     padding: 0;
-    margin: 20px;
     display: block;
 }
 
@@ -32,10 +32,6 @@ body {
 }
 
 .game-container {
+    width: 720px;
     margin: 0 auto;
 }
-
-.game {
-    background-color: red;
-}
-

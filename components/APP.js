@@ -32,8 +32,8 @@ var APP = React.createClass({
   render() {
     return (
       <div className="container">
-        <div className="row">
-          <Header className="col-xs-6" status={this.state.status} />
+        <div className="header">
+          <Header status={this.state.status} />
         </div>
         <div className="game-container">
           <Game emit={this.emit} {...this.state} />
