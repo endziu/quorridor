@@ -1,10 +1,10 @@
 {
-  "name": "quorridor",
+  "name": "game-init",
   "version": "0.0.1",
-  "description": "a board game",
+  "description": "a react canvas game boilerplate",
   "repository": {
     "type": "git",
-    "url": "https://github.com/endziu/quorridor.git"
+    "url": "https://github.com/endziu/game-init.git"
   },
   "main": "app-server.js",
   "dependencies": {
