@@ -27998,14 +27998,21 @@
 	  },
 
 	  mouseUpListener: function mouseUpListener() {
+	    var self = this;
 	    this._canvas.addEventListener('mouseup', function (e) {
 
+	      var gameRect = self._canvas.getBoundingClientRect();
+
 	      var clickPos = {
-	        x: e.clientX - e.target.offsetLeft,
-	        y: e.clientY - e.target.offsetTop
+	        x: e.clientX - gameRect.left,
+	        y: e.clientY - gameRect.top
 	      };
 
-	      console.log(clickPos.x, clickPos.y);
+	      if (e.which === 1) {
+	        console.log('LEFT-CLICK: ', clickPos.x, clickPos.y);
+	      } else if (e.which === 3) {
+	        console.log('RIGHT-CLICK: ', clickPos.x, clickPos.y);
+	      }
 	    }, false);
 	  },
 
