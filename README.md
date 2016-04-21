@@ -1,2 +1,4 @@
-# game-init
-react canvas game init
+## quorridor-io
+react canvas socketio game  
+caution  
+work in progress / often broken  
