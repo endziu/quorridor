@@ -20486,12 +20486,8 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { className: 'container' },
-	      React.createElement(
-	        'div',
-	        { className: 'header' },
-	        React.createElement(Header, { status: this.state.status })
-	      ),
+	      null,
+	      React.createElement(Header, { status: this.state.status }),
 	      React.createElement(
 	        'div',
 	        { className: 'game-container' },
@@ -27947,14 +27943,14 @@
 
 	  render: function render() {
 	    return React.createElement(
-	      'header',
-	      null,
+	      'div',
+	      { className: 'header' },
+	      React.createElement('span', { id: 'connection-status', className: this.props.status }),
 	      React.createElement(
 	        'h1',
-	        { id: 'title' },
+	        { className: 'title' },
 	        'a game...'
-	      ),
-	      React.createElement('span', { id: 'connection-status', className: this.props.status })
+	      )
 	    );
 	  }
 

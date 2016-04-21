@@ -10,10 +10,10 @@ var Header = React.createClass({
 
   render() {
     return (
-      <header>
-        <h1 id="title">a game...</h1>
+      <div className="header">
         <span id="connection-status" className={this.props.status}></span>
-      </header>
+        <h1 className="title">a game...</h1>
+      </div>
     );
   }
 

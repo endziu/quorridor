@@ -31,10 +31,8 @@ var APP = React.createClass({
 
   render() {
     return (
-      <div className="container">
-        <div className="header">
-          <Header status={this.state.status} />
-        </div>
+      <div>
+        <Header status={this.state.status} />
         <div className="game-container">
           <Game emit={this.emit} {...this.state} />
         </div>
