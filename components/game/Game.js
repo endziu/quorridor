@@ -1,5 +1,8 @@
 var React = require('react');
 var Board = require('./Board');
+var Player = require('./Player');
+var Wall = require('./Wall');
+
 var Game = React.createClass({
 
   render() {
@@ -27,9 +30,9 @@ var Game = React.createClass({
     };    
   },
 
-  syncGameState(state) {
+  syncGameState(newState) {
     var self = this;
-    var s = state || this.props;
+    var s = newState || this.props;
   },
   
   mouseUpListener() {
@@ -44,10 +47,12 @@ var Game = React.createClass({
       };
 
       if (e.which === 1) {
-        console.log('LEFT-CLICK: ',clickPos.x, clickPos.y);
+        self.props.emit('click', {pos: clickPos, button: "LEFT"});
       } else if (e.which ===3) {
-        console.log('RIGHT-CLICK: ',clickPos.x, clickPos.y);
+        self.props.emit('click', {pos: clickPos, button: "RIGHT"});
       }
+
+
 
     }, false);
   },

@@ -20461,7 +20461,8 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      status: 'disconnected'
+	      status: 'disconnected',
+	      clicks: []
 	    };
 	  },
 
@@ -20469,6 +20470,7 @@
 	    this.socket = io('localhost:3000');
 	    this.socket.on('connect', this.connect);
 	    this.socket.on('disconnect', this.disconnect);
+	    this.socket.on('update', this.update);
 	  },
 
 	  emit: function emit(eventName, payload) {
@@ -20481,6 +20483,10 @@
 
 	  disconnect: function disconnect() {
 	    this.setState({ status: 'disconnected' });
+	  },
+
+	  update: function update(newState) {
+	    this.setState({ clicks: newState.clicks });
 	  },
 
 	  render: function render() {
@@ -27937,7 +27943,10 @@
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      status: 'disconnected'
+	      status: 'disconnected',
+	      currentUser: 'none',
+	      currentTeam: 'none',
+	      turn: 'white'
 	    };
 	  },
 
@@ -27950,6 +27959,16 @@
 	        'h1',
 	        { className: 'title' },
 	        'a game...'
+	      ),
+	      React.createElement(
+	        'p',
+	        { className: 'info' },
+	        'User: ',
+	        this.props.currentUser,
+	        ' | Team: ',
+	        this.props.currentTeam,
+	        ' | Turn: ',
+	        this.props.turn
 	      )
 	    );
 	  }
@@ -27966,6 +27985,9 @@
 
 	var React = __webpack_require__(1);
 	var Board = __webpack_require__(207);
+	var Player = __webpack_require__(208);
+	var Wall = __webpack_require__(209);
+
 	var Game = React.createClass({
 	  displayName: 'Game',
 
@@ -27992,9 +28014,9 @@
 	    };
 	  },
 
-	  syncGameState: function syncGameState(state) {
+	  syncGameState: function syncGameState(newState) {
 	    var self = this;
-	    var s = state || this.props;
+	    var s = newState || this.props;
 	  },
 
 	  mouseUpListener: function mouseUpListener() {
@@ -28009,9 +28031,9 @@
 	      };
 
 	      if (e.which === 1) {
-	        console.log('LEFT-CLICK: ', clickPos.x, clickPos.y);
+	        self.props.emit('click', { pos: clickPos, button: "LEFT" });
 	      } else if (e.which === 3) {
-	        console.log('RIGHT-CLICK: ', clickPos.x, clickPos.y);
+	        self.props.emit('click', { pos: clickPos, button: "RIGHT" });
 	      }
 	    }, false);
 	  },
@@ -28078,6 +28100,18 @@
 	};
 
 	module.exports = Board;
+
+/***/ },
+/* 208 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+/***/ },
+/* 209 */
+/***/ function(module, exports) {
+
+	"use strict";
 
 /***/ }
 /******/ ]);

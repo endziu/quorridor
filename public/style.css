@@ -16,6 +16,11 @@ body {
     margin: 0 0 0 10px;
 }
 
+.info {
+    margin: 10px 10px 0 0;
+    float: right;
+}
+
 #connection-status {
     height: 35px;
     width: 35px;
@@ -40,8 +45,4 @@ body {
     margin: 0 auto;
     clear: left;
     background-color: Cornsilk;
-}
-
-#canvas {
-    
 }

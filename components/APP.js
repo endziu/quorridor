@@ -7,7 +7,8 @@ var APP = React.createClass({
 
   getInitialState() {
     return {
-      status: 'disconnected'
+      status: 'disconnected',
+      clicks: []
     }
   },
 
@@ -15,6 +16,7 @@ var APP = React.createClass({
     this.socket = io('localhost:3000');
     this.socket.on('connect', this.connect);
     this.socket.on('disconnect', this.disconnect);
+    this.socket.on('update', this.update);
   },
 
   emit(eventName, payload){
@@ -27,6 +29,10 @@ var APP = React.createClass({
 
   disconnect() {
     this.setState({ status: 'disconnected' });
+  },
+
+  update(newState) {
+    this.setState({ clicks: newState.clicks });
   },
 
   render() {

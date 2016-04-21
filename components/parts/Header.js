@@ -4,7 +4,10 @@ var Header = React.createClass({
 
   getDefaultProps() {
     return {
-      status: 'disconnected'
+      status: 'disconnected',
+      currentUser: 'none',
+      currentTeam: 'none',
+      turn: 'white'
     }
   },
 
@@ -13,6 +16,7 @@ var Header = React.createClass({
       <div className="header">
         <span id="connection-status" className={this.props.status}></span>
         <h1 className="title">a game...</h1>
+        <p className="info">User: {this.props.currentUser} | Team: {this.props.currentTeam} | Turn: {this.props.turn}</p>
       </div>
     );
   }
