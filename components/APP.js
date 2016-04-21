@@ -35,7 +35,7 @@ var APP = React.createClass({
         <div className="row">
           <Header className="col-xs-6" status={this.state.status} />
         </div>
-        <div className="row">
+        <div className="game-container">
           <Game emit={this.emit} {...this.state} />
         </div>
       </div>

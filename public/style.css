@@ -31,6 +31,10 @@ body {
     border: solid 1px black;
 }
 
+.game-container {
+    margin: 0 auto;
+}
+
 .game {
     background-color: red;
 }

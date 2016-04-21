@@ -20494,7 +20494,7 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'row' },
+	        { className: 'game-container' },
 	        React.createElement(Game, _extends({ emit: this.emit }, this.state))
 	      )
 	    );
