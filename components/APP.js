@@ -8,7 +8,9 @@ var APP = React.createClass({
   getInitialState() {
     return {
       status: 'disconnected',
-      clicks: []
+      walls: [],
+      moves: [],
+      move: {}
     }
   },
 
@@ -32,7 +34,7 @@ var APP = React.createClass({
   },
 
   update(newState) {
-    this.setState({ clicks: newState.clicks });
+    this.setState({walls: newState.walls, moves: newState.moves, move: newState.move});
   },
 
   render() {

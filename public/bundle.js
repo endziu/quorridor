@@ -20462,7 +20462,9 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      status: 'disconnected',
-	      clicks: []
+	      walls: [],
+	      moves: [],
+	      move: {}
 	    };
 	  },
 
@@ -20486,7 +20488,7 @@
 	  },
 
 	  update: function update(newState) {
-	    this.setState({ clicks: newState.clicks });
+	    this.setState({ walls: newState.walls, moves: newState.moves, move: newState.move });
 	  },
 
 	  render: function render() {
@@ -28024,7 +28026,6 @@
 	    this._canvas.addEventListener('mouseup', function (e) {
 
 	      var gameRect = self._canvas.getBoundingClientRect();
-
 	      var clickPos = {
 	        x: e.clientX - gameRect.left,
 	        y: e.clientY - gameRect.top
@@ -28082,7 +28083,7 @@
 	var Board = function Board() {
 	  this.gameSize = { x: 9, y: 9 };
 	  this.fieldOffset = 10;
-	  this.wallOffset = 77.5;
+	  this.wallOffset = 80;
 	  this.gridSize = 80;
 	  this.fieldSize = 70;
 	};
@@ -28103,7 +28104,7 @@
 	        var x1 = i * this.gridSize + this.wallOffset;
 	        var y1 = j * this.gridSize + this.wallOffset;
 	        ctx.fillStyle = "rgba(165,42,42,0.45)"; // transparent brown
-	        ctx.fillRect(x1, y1, 15, 15);
+	        ctx.fillRect(x1, y1, 10, 10);
 	      }
 	    }
 	  }

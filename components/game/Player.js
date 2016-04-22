@@ -5,9 +5,6 @@ var Player = function(team,pos) {
 };
 
 Player.prototype = {
-  update: function() {
-    //nothing atm...
-  },
   draw: function(ctx){
     var offset = 25;
     var width = 80;

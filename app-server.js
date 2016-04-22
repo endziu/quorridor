@@ -13,7 +13,9 @@ var io = require('socket.io').listen(server);
 //sockets here...
 var connections = [];
 var gameState = {
-  clicks: []
+  walls: [],
+  moves: [],
+  move: {}
 };
 
 io.sockets.on('connection', function(socket) {
@@ -26,16 +28,21 @@ io.sockets.on('connection', function(socket) {
   };
 
   var handleClick = function(payload) {
-    gameState.clicks.push(payload);
-    io.sockets.emit('update', gameState);
+    console.log('click ;-)')
   }
 
   var handleMove = function(payload) {
-    console.log(payload);
+    console.log('MOVE: ', payload);
+    gameState.moves.push(payload);
+    gameState.move = payload;
+    io.sockets.emit('update', gameState);
+    gameState.move = {};
   }
 
   var handleWall = function(payload) {
-    console.log(payload);
+    console.log('WALL: ', payload);
+    gameState.walls.push(payload);
+    io.sockets.emit('update', gameState);
   }
 
   socket.once('disconnect', handleDisconnect);

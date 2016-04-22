@@ -44,7 +44,6 @@ var Game = React.createClass({
     this._canvas.addEventListener('mouseup', function(e) {
 
       var gameRect = self._canvas.getBoundingClientRect();
-
       var clickPos = {
         x: e.clientX - gameRect.left,
         y: e.clientY - gameRect.top
