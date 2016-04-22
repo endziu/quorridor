@@ -28090,6 +28090,7 @@
 
 	Board.prototype = {
 	  draw: function draw(ctx) {
+	    //player grid
 	    for (var i = 0; i < this.gameSize.x; i++) {
 	      for (var j = 0; j < this.gameSize.y; j++) {
 	        var x = i * this.gridSize + this.fieldOffset;
@@ -28098,7 +28099,7 @@
 	        ctx.fillRect(x, y, this.fieldSize, this.fieldSize);
 	      }
 	    }
-
+	    //wall grid
 	    for (var i = 0; i < this.gameSize.x - 1; i++) {
 	      for (var j = 0; j < this.gameSize.y - 1; j++) {
 	        var x1 = i * this.gridSize + this.wallOffset;
@@ -28125,9 +28126,6 @@
 	};
 
 	Player.prototype = {
-	  update: function update() {
-	    //nothing atm...
-	  },
 	  draw: function draw(ctx) {
 	    var offset = 25;
 	    var width = 80;

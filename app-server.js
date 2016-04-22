@@ -23,7 +23,9 @@ io.sockets.on('connection', function(socket) {
   var handleDisconnect = function() {
     console.log('Disconnecting...', socket.id);
     connections.splice(connections.indexOf(socket), 1);
-    gameState.clicks = [];
+    gameState.walls = [];
+    gameState.moves = [];
+    gameState.move = {};
     socket.disconnect();
   };
 
@@ -54,6 +56,8 @@ io.sockets.on('connection', function(socket) {
   connections.push(socket);
   //log incoming socket id
   console.log("Connected: ", socket.id);
+
+  io.sockets.emit('update', gameState);
 });
 
 console.log("game server is running at 'http://localhost:3000'");
