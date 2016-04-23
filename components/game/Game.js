@@ -2,6 +2,7 @@ var React = require('react');
 var Board = require('./Board');
 var Player = require('./Player');
 var Wall = require('./Wall');
+var inRange = require('../utils/inRange');
 
 var Game = React.createClass({
 
@@ -12,13 +13,13 @@ var Game = React.createClass({
   },
 
   componentDidMount() {
+    this.board = new Board();
+    this.p1  = new Player('white', {x: 4, y: 8});
+    this.p2 = new Player('black', {x: 4, y: 0});
+    this.board.init();
     this.prepareCanvas();
     this.gameSize = { x: this._canvas.width, y: this._canvas.height };
-    this.bodies = [
-      new Board(), 
-      new Player('white', {x: 4, y: 8}),
-      new Player('black', {x: 4, y: 0})
-    ];
+    this.bodies = [this.board, this.p1, this.p2];
     this.syncGameState();
     this.mouseUpListener();
     this.loop();
@@ -36,23 +37,37 @@ var Game = React.createClass({
 
   syncGameState(newState) {
     var self = this;
-    var s = newState || this.props;    
+    var s = newState || this.props;
   },
   
   mouseUpListener() {
     var self = this;
+
     this._canvas.addEventListener('mouseup', function(e) {
 
       var gameRect = self._canvas.getBoundingClientRect();
+
       var clickPos = {
         x: e.clientX - gameRect.left,
         y: e.clientY - gameRect.top
       };
 
-      if (e.which === 1) {
-        self.props.emit('click', {pos: clickPos, button: "LEFT"});
-      } else if (e.which === 3) {
-        self.props.emit('click', {pos: clickPos, button: "RIGHT"});
+      var fieldClick = self.board.fieldCoords.filter(function(coord){
+        return (inRange(clickPos.x, coord.x, coord.x + 70) &&
+                inRange(clickPos.y, coord.y, coord.y + 70));
+      });
+
+      var wallClick = self.board.wallCoords.filter(function(coord) {
+        return (inRange(clickPos.x, coord.x, coord.x + 10) &&
+                inRange(clickPos.y, coord.y, coord.y + 10));
+      });
+
+      if(fieldClick[0]) {
+        console.log('selecting field: ', fieldClick[0].id);
+      } else if(wallClick[0]) {
+        console.log('placing wall at: ', wallClick[0].id);
+      } else {
+        console.log('CLick ;p')
       }
 
     }, false);
@@ -88,6 +103,14 @@ var Game = React.createClass({
     console.log('placing wall: ', type, pos);
     this.props.emit('wall', {team:team, type: type, pos: pos});
   },
+
+  addBody(body) {
+    this.bodies.push(body);
+  },
+
+  removeBody(body) {
+    return this.bodies.splice(this.bodies.indexOf(body), 1);
+  }
 
 });
 

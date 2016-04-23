@@ -10,7 +10,9 @@ var APP = React.createClass({
       status: 'disconnected',
       walls: [],
       moves: [],
-      move: {}
+      move: {},
+      turn: 'white',
+      selectedField: {}
     }
   },
 
@@ -34,7 +36,7 @@ var APP = React.createClass({
   },
 
   update(newState) {
-    this.setState({walls: newState.walls, moves: newState.moves, move: newState.move});
+    this.setState({...newState});
   },
 
   render() {

@@ -20464,7 +20464,9 @@
 	      status: 'disconnected',
 	      walls: [],
 	      moves: [],
-	      move: {}
+	      move: {},
+	      turn: 'white',
+	      selectedField: {}
 	    };
 	  },
 
@@ -20488,7 +20490,7 @@
 	  },
 
 	  update: function update(newState) {
-	    this.setState({ walls: newState.walls, moves: newState.moves, move: newState.move });
+	    this.setState(_extends({}, newState));
 	  },
 
 	  render: function render() {
@@ -27989,6 +27991,7 @@
 	var Board = __webpack_require__(207);
 	var Player = __webpack_require__(208);
 	var Wall = __webpack_require__(209);
+	var inRange = __webpack_require__(210);
 
 	var Game = React.createClass({
 	  displayName: 'Game',
@@ -27998,9 +28001,13 @@
 	  },
 
 	  componentDidMount: function componentDidMount() {
+	    this.board = new Board();
+	    this.p1 = new Player('white', { x: 4, y: 8 });
+	    this.p2 = new Player('black', { x: 4, y: 0 });
+	    this.board.init();
 	    this.prepareCanvas();
 	    this.gameSize = { x: this._canvas.width, y: this._canvas.height };
-	    this.bodies = [new Board(), new Player('white', { x: 4, y: 8 }), new Player('black', { x: 4, y: 0 })];
+	    this.bodies = [this.board, this.p1, this.p2];
 	    this.syncGameState();
 	    this.mouseUpListener();
 	    this.loop();
@@ -28023,18 +28030,30 @@
 
 	  mouseUpListener: function mouseUpListener() {
 	    var self = this;
+
 	    this._canvas.addEventListener('mouseup', function (e) {
 
 	      var gameRect = self._canvas.getBoundingClientRect();
+
 	      var clickPos = {
 	        x: e.clientX - gameRect.left,
 	        y: e.clientY - gameRect.top
 	      };
 
-	      if (e.which === 1) {
-	        self.props.emit('click', { pos: clickPos, button: "LEFT" });
-	      } else if (e.which === 3) {
-	        self.props.emit('click', { pos: clickPos, button: "RIGHT" });
+	      var fieldClick = self.board.fieldCoords.filter(function (coord) {
+	        return inRange(clickPos.x, coord.x, coord.x + 70) && inRange(clickPos.y, coord.y, coord.y + 70);
+	      });
+
+	      var wallClick = self.board.wallCoords.filter(function (coord) {
+	        return inRange(clickPos.x, coord.x, coord.x + 10) && inRange(clickPos.y, coord.y, coord.y + 10);
+	      });
+
+	      if (fieldClick[0]) {
+	        console.log('selecting field: ', fieldClick[0].id);
+	      } else if (wallClick[0]) {
+	        console.log('placing wall at: ', wallClick[0].id);
+	      } else {
+	        console.log('CLick ;p');
 	      }
 	    }, false);
 	  },
@@ -28068,6 +28087,14 @@
 	  placeWall: function placeWall(team, type, pos) {
 	    console.log('placing wall: ', type, pos);
 	    this.props.emit('wall', { team: team, type: type, pos: pos });
+	  },
+
+	  addBody: function addBody(body) {
+	    this.bodies.push(body);
+	  },
+
+	  removeBody: function removeBody(body) {
+	    return this.bodies.splice(this.bodies.indexOf(body), 1);
 	  }
 
 	});
@@ -28085,29 +28112,50 @@
 	  this.fieldOffset = 10;
 	  this.wallOffset = 80;
 	  this.gridSize = 80;
+	  this.fieldCoords = [];
+	  this.wallCoords = [];
 	  this.fieldSize = 70;
 	};
 
 	Board.prototype = {
-	  draw: function draw(ctx) {
-	    //player grid
+	  init: function init() {
 	    for (var i = 0; i < this.gameSize.x; i++) {
 	      for (var j = 0; j < this.gameSize.y; j++) {
 	        var x = i * this.gridSize + this.fieldOffset;
 	        var y = j * this.gridSize + this.fieldOffset;
-	        ctx.fillStyle = "#aaa"; //grey
-	        ctx.fillRect(x, y, this.fieldSize, this.fieldSize);
+	        this.fieldCoords.push({
+	          x: x,
+	          y: y,
+	          id: { x: i + 1, y: j + 1 }
+	        });
 	      }
 	    }
-	    //wall grid
+
 	    for (var i = 0; i < this.gameSize.x - 1; i++) {
 	      for (var j = 0; j < this.gameSize.y - 1; j++) {
 	        var x1 = i * this.gridSize + this.wallOffset;
 	        var y1 = j * this.gridSize + this.wallOffset;
-	        ctx.fillStyle = "rgba(165,42,42,0.45)"; // transparent brown
-	        ctx.fillRect(x1, y1, 10, 10);
+	        this.wallCoords.push({
+	          x: x1,
+	          y: y1,
+	          id: { x: i + 1, y: j + 1 }
+	        });
 	      }
 	    }
+	  },
+
+	  draw: function draw(ctx) {
+	    var self = this;
+	    //player grid
+	    this.fieldCoords.map(function (coord) {
+	      ctx.fillStyle = "#aaa"; //grey
+	      ctx.fillRect(coord.x, coord.y, self.fieldSize, self.fieldSize);
+	    });
+	    //wall grid
+	    this.wallCoords.map(function (coord) {
+	      ctx.fillStyle = "rgba(165,42,42,0.45)"; // transparent brown
+	      ctx.fillRect(coord.x, coord.y, 10, 10);
+	    });
 	  }
 	};
 
@@ -28147,6 +28195,18 @@
 /***/ function(module, exports) {
 
 	"use strict";
+
+/***/ },
+/* 210 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var inRange = function inRange(value, min, max) {
+	  return value >= Math.min(min, max) && value <= Math.max(min, max);
+	};
+
+	module.exports = inRange;
 
 /***/ }
 /******/ ]);

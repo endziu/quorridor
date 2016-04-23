@@ -3,29 +3,50 @@ var Board = function() {
   this.fieldOffset = 10;
   this.wallOffset = 80;
   this.gridSize = 80;
+  this.fieldCoords = [];
+  this.wallCoords = [];
   this.fieldSize = 70;
 } 
 
 Board.prototype =  {
-  draw: function(ctx) {
-    //player grid
+  init: function() {
     for (var i = 0; i < this.gameSize.x; i++) {
       for (var j = 0; j< this.gameSize.y; j++) {
         var x = i * this.gridSize + this.fieldOffset;
         var y = j * this.gridSize + this.fieldOffset;
-        ctx.fillStyle = "#aaa"; //grey
-        ctx.fillRect(x, y, this.fieldSize, this.fieldSize);
+        this.fieldCoords.push({
+          x: x,
+          y: y,
+          id: {x:i+1, y:j+1}
+        });
       }
     }
-    //wall grid
+
     for (var i = 0; i < this.gameSize.x -1; i++) {
       for (var j = 0; j< this.gameSize.y -1; j++) {
         var x1 = i * this.gridSize + this.wallOffset;
         var y1 = j * this.gridSize + this.wallOffset;
-        ctx.fillStyle = "rgba(165,42,42,0.45)"; // transparent brown
-        ctx.fillRect(x1,y1,10,10);
+        this.wallCoords.push({
+          x: x1,
+          y: y1,
+          id: {x:i+1, y:j+1}
+        });
       }
     }
+  },
+
+  draw: function(ctx) {
+    var self = this;
+    //player grid
+    this.fieldCoords.map(function(coord){
+        ctx.fillStyle = "#aaa"; //grey
+        ctx.fillRect(coord.x, coord.y, self.fieldSize, self.fieldSize);
+    })
+    //wall grid
+    this.wallCoords.map(function(coord){
+      ctx.fillStyle = "rgba(165,42,42,0.45)"; // transparent brown
+      ctx.fillRect(coord.x,coord.y,10,10);
+    })
 
   }
 }

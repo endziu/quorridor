@@ -15,7 +15,9 @@ var connections = [];
 var gameState = {
   walls: [],
   moves: [],
-  move: {}
+  move: {},
+  turn: "white",
+  selectedField: {}
 };
 
 io.sockets.on('connection', function(socket) {
@@ -26,12 +28,9 @@ io.sockets.on('connection', function(socket) {
     gameState.walls = [];
     gameState.moves = [];
     gameState.move = {};
+    io.sockets.emit('update', gameState);
     socket.disconnect();
   };
-
-  var handleClick = function(payload) {
-    console.log('click ;-)')
-  }
 
   var handleMove = function(payload) {
     console.log('MOVE: ', payload);
@@ -48,7 +47,6 @@ io.sockets.on('connection', function(socket) {
   }
 
   socket.once('disconnect', handleDisconnect);
-  socket.on('click', handleClick);
   socket.on('move', handleMove);
   socket.on('wall', handleWall);
 
