@@ -20462,10 +20462,12 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      status: 'disconnected',
+	      currentUser: 'none',
+	      currentTeam: 'none',
+	      turn: 'none',
 	      walls: [],
 	      moves: [],
-	      move: {},
-	      turn: 'none'
+	      move: {}
 	    };
 	  },
 
@@ -28047,12 +28049,13 @@
 	        return inRange(clickPos.x, coord.x, coord.x + 10) && inRange(clickPos.y, coord.y, coord.y + 10);
 	      });
 
-	      if (fieldClick[0]) {
-	        console.log('selecting field: ', fieldClick[0].id);
-	      } else if (wallClick[0]) {
-	        console.log('placing wall at: ', wallClick[0].id);
-	      } else {
-	        console.log('CLick ;p');
+	      if (fieldClick.length === 1) {
+	        //console.log('selecting field: ', fieldClick[0].id);
+	        self.move('white', 'forward');
+	      }
+	      if (wallClick.length === 1) {
+	        //console.log('placing wall at: ', wallClick[0].id);
+	        self.placeWall('black', 'horizontal', { x: 2, y: 3 });
 	      }
 	    }, false);
 	  },
@@ -28080,12 +28083,16 @@
 
 	  move: function move(team, dir) {
 	    console.log('moving: ', team, dir);
-	    this.props.emit('move', { team: team, dir: dir });
+	    if (team === this.props.turn) {
+	      this.props.emit('move', { team: team, dir: dir });
+	    }
 	  },
 
 	  placeWall: function placeWall(team, type, pos) {
 	    console.log('placing wall: ', type, pos);
-	    this.props.emit('wall', { team: team, type: type, pos: pos });
+	    if (team === this.props.turn) {
+	      this.props.emit('wall', { team: team, type: type, pos: pos });
+	    }
 	  },
 
 	  addBody: function addBody(body) {

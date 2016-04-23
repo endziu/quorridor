@@ -62,14 +62,12 @@ var Game = React.createClass({
                 inRange(clickPos.y, coord.y, coord.y + 10));
       });
 
-      if(fieldClick[0]) {
-        console.log('selecting field: ', fieldClick[0].id);
-      } else if(wallClick[0]) {
-        console.log('placing wall at: ', wallClick[0].id);
-      } else {
-        console.log('CLick ;p')
+      if(fieldClick.length === 1) {
+        self.move('white', 'forward');
       }
-
+      if(wallClick.length === 1) {
+        self.placeWall('black', 'horizontal', {x:2, y:3});
+      }
     }, false);
   },
 
@@ -95,13 +93,16 @@ var Game = React.createClass({
   },
 
   move(team, dir) {
-    console.log('moving: ',team, dir);
-    this.props.emit('move', {team:team, dir:dir});
+    if(team === this.props.turn) {
+      this.props.emit('move', {team:team, dir:dir});
+    }
   },
 
   placeWall(team,type,pos) {
-    console.log('placing wall: ', type, pos);
-    this.props.emit('wall', {team:team, type: type, pos: pos});
+    if(team === this.props.turn) {
+      this.props.emit('wall', {team:team, type: type, pos: pos});  
+    }
+    
   },
 
   addBody(body) {

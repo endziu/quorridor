@@ -6,12 +6,14 @@ var Game = require('./game/Game');
 var APP = React.createClass({
 
   getInitialState() {
-    return {
+    return{
       status: 'disconnected',
+      currentUser: 'none',
+      currentTeam: 'none',
+      turn: 'none',
       walls: [],
       moves: [],
-      move: {},
-      turn: 'none'
+      move: {}
     }
   },
 
