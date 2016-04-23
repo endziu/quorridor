@@ -20465,8 +20465,7 @@
 	      walls: [],
 	      moves: [],
 	      move: {},
-	      turn: 'white',
-	      selectedField: {}
+	      turn: 'none'
 	    };
 	  },
 
@@ -20497,7 +20496,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(Header, { status: this.state.status }),
+	      React.createElement(Header, this.state),
 	      React.createElement(
 	        'div',
 	        { className: 'game-container' },
@@ -27950,7 +27949,7 @@
 	      status: 'disconnected',
 	      currentUser: 'none',
 	      currentTeam: 'none',
-	      turn: 'white'
+	      turn: 'none'
 	    };
 	  },
 

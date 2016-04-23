@@ -11,8 +11,7 @@ var APP = React.createClass({
       walls: [],
       moves: [],
       move: {},
-      turn: 'white',
-      selectedField: {}
+      turn: 'none'
     }
   },
 
@@ -42,7 +41,7 @@ var APP = React.createClass({
   render() {
     return (
       <div>
-        <Header status={this.state.status} />
+        <Header {...this.state} />
         <div className="game-container">
           <Game emit={this.emit} {...this.state} />
         </div>

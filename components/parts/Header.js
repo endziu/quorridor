@@ -7,7 +7,7 @@ var Header = React.createClass({
       status: 'disconnected',
       currentUser: 'none',
       currentTeam: 'none',
-      turn: 'white'
+      turn: 'none'
     }
   },
 

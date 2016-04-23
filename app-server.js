@@ -16,8 +16,7 @@ var gameState = {
   walls: [],
   moves: [],
   move: {},
-  turn: "white",
-  selectedField: {}
+  turn: "none"
 };
 
 io.sockets.on('connection', function(socket) {
@@ -34,8 +33,19 @@ io.sockets.on('connection', function(socket) {
 
   var handleMove = function(payload) {
     console.log('MOVE: ', payload);
+
+    if(payload.team === "white") {
+      gameState.turn = "black";
+    } else if (payload.team === "black") {
+      gameState.turn = "white";
+    } else {
+      console.log('no team ?');
+    }
+    
+
     gameState.moves.push(payload);
     gameState.move = payload;
+
     io.sockets.emit('update', gameState);
     gameState.move = {};
   }
