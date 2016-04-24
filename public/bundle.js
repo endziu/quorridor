@@ -28050,10 +28050,12 @@
 	      });
 
 	      if (fieldClick.length === 1) {
-	        self.move('white', 'forward', self.p1.getPos());
+	        self.move('white', 'forward', self.p1.pos);
 	      }
-	      if (wallClick.length === 1) {
+	      if (wallClick.length === 1 && e.which === 1) {
 	        self.placeWall('black', 'horizontal', wallClick[0].id);
+	      } else if (wallClick.length === 1 && e.which === 3) {
+	        self.placeWall('black', 'vertical', wallClick[0].id);
 	      }
 	    }, false);
 	  },
@@ -28087,6 +28089,7 @@
 
 	  placeWall: function placeWall(team, type, pos) {
 	    if (team === this.props.turn) {
+	      this.bodies.push(new Wall(type, pos));
 	      this.props.emit('wall', { team: team, type: type, pos: pos });
 	    }
 	  },
@@ -28155,7 +28158,7 @@
 	    });
 	    //wall grid
 	    this.wallCoords.map(function (coord) {
-	      ctx.fillStyle = "rgba(165,42,42,0.45)"; // transparent brown
+	      ctx.fillStyle = "rgba(42,165,42,0.45)"; // transparent brown
 	      ctx.fillRect(coord.x, coord.y, 10, 10);
 	    });
 	  }
@@ -28212,15 +28215,15 @@
 	    //nothing atm...
 	  },
 	  draw: function draw(screen) {
-	    var offset = 5; // half of the space between squares
+	    var offset = 10;
 	    var width = 80;
 	    if (this.type === "horizontal") {
 	      screen.fillStyle = "#641";
-	      screen.fillRect(this.pos.x * width + offset, this.pos.y * width - offset, 150, 10);
+	      screen.fillRect((this.pos.x - 1) * width + offset, this.pos.y * width, 150, 10);
 	    }
 	    if (this.type === "vertical") {
 	      screen.fillStyle = "#641";
-	      screen.fillRect(this.pos.x * width - offset, this.pos.y * width + offset, 10, 150);
+	      screen.fillRect(this.pos.x * width, (this.pos.y - 1) * width + offset, 10, 150);
 	    }
 	  },
 	  getWall: function getWall() {

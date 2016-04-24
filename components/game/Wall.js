@@ -8,15 +8,15 @@ Wall.prototype = {
     //nothing atm...
   },
   draw: function(screen) {
-    var offset = 5; // half of the space between squares
+    var offset = 10;
     var width = 80;
     if(this.type === "horizontal") {
       screen.fillStyle = "#641";
-      screen.fillRect(this.pos.x*width+offset,this.pos.y*width-offset,150,10);
+      screen.fillRect((this.pos.x - 1) * width + offset, this.pos.y * width, 150, 10);
     }
     if(this.type === "vertical") {
       screen.fillStyle = "#641";
-      screen.fillRect(this.pos.x*width-offset,this.pos.y*width+offset,10,150);
+      screen.fillRect(this.pos.x * width, (this.pos.y - 1) * width + offset, 10, 150);
     }
   },
   getWall: function() {

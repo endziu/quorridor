@@ -63,10 +63,12 @@ var Game = React.createClass({
       });
 
       if(fieldClick.length === 1) {
-        self.move('white', 'forward', self.p1.getPos());
+        self.move('white', 'forward', self.p1.pos);
       }
-      if(wallClick.length === 1) {
+      if(wallClick.length === 1 && e.which === 1) {
         self.placeWall('black', 'horizontal', wallClick[0].id);
+      } else if (wallClick.length === 1 && e.which === 3) {
+        self.placeWall('black', 'vertical', wallClick[0].id);
       }
 
     }, false);
@@ -101,6 +103,7 @@ var Game = React.createClass({
 
   placeWall(team,type,pos) {
     if(team === this.props.turn) {
+      this.bodies.push(new Wall(type,pos))
       this.props.emit('wall', {team:team, type: type, pos: pos});  
     }
     
