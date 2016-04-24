@@ -16,6 +16,10 @@ Player.prototype = {
       ctx.fillStyle = "#000";
       ctx.fillRect(this.pos.x * width + offset, this.pos.y   * width + offset, 40, 40);
     }
+  },
+
+  getPos() {
+    return this.pos;
   }
 };
 

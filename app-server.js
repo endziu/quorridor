@@ -1,6 +1,7 @@
 //import dependecies
 var express = require('express');
 var app = express();
+var isInArray = require('./components/utils/isInArray');
 
 //use public folder to serve static content
 app.use(express.static('./public'));
@@ -52,6 +53,11 @@ io.sockets.on('connection', function(socket) {
   var handleWall = function(payload) {
     console.log('WALL: ', payload);
 
+    if (isInArray(payload, gameState.walls)) {
+      console.log('its in da array!!!1')
+      return;
+    }
+
     if(payload.team === "white") {
       gameState.turn = "black";
     } else if (payload.team === "black") {
@@ -62,6 +68,9 @@ io.sockets.on('connection', function(socket) {
 
     gameState.walls.push(payload);
     io.sockets.emit('update', gameState);
+
+    
+    
   }
 
   socket.once('disconnect', handleDisconnect);

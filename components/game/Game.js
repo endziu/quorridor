@@ -63,11 +63,12 @@ var Game = React.createClass({
       });
 
       if(fieldClick.length === 1) {
-        self.move('white', 'forward');
+        self.move('white', 'forward', self.p1.getPos());
       }
       if(wallClick.length === 1) {
-        self.placeWall('black', 'horizontal', {x:2, y:3});
+        self.placeWall('black', 'horizontal', wallClick[0].id);
       }
+
     }, false);
   },
 
@@ -92,9 +93,9 @@ var Game = React.createClass({
     });
   },
 
-  move(team, dir) {
+  move(team, dir, pos) {
     if(team === this.props.turn) {
-      this.props.emit('move', {team:team, dir:dir});
+      this.props.emit('move', {team:team, dir:dir, pos: pos});
     }
   },
 

@@ -28050,12 +28050,10 @@
 	      });
 
 	      if (fieldClick.length === 1) {
-	        //console.log('selecting field: ', fieldClick[0].id);
-	        self.move('white', 'forward');
+	        self.move('white', 'forward', self.p1.getPos());
 	      }
 	      if (wallClick.length === 1) {
-	        //console.log('placing wall at: ', wallClick[0].id);
-	        self.placeWall('black', 'horizontal', { x: 2, y: 3 });
+	        self.placeWall('black', 'horizontal', wallClick[0].id);
 	      }
 	    }, false);
 	  },
@@ -28081,15 +28079,13 @@
 	    });
 	  },
 
-	  move: function move(team, dir) {
-	    console.log('moving: ', team, dir);
+	  move: function move(team, dir, pos) {
 	    if (team === this.props.turn) {
-	      this.props.emit('move', { team: team, dir: dir });
+	      this.props.emit('move', { team: team, dir: dir, pos: pos });
 	    }
 	  },
 
 	  placeWall: function placeWall(team, type, pos) {
-	    console.log('placing wall: ', type, pos);
 	    if (team === this.props.turn) {
 	      this.props.emit('wall', { team: team, type: type, pos: pos });
 	    }
@@ -28191,6 +28187,10 @@
 	      ctx.fillStyle = "#000";
 	      ctx.fillRect(this.pos.x * width + offset, this.pos.y * width + offset, 40, 40);
 	    }
+	  },
+
+	  getPos: function getPos() {
+	    return this.pos;
 	  }
 	};
 
@@ -28201,6 +28201,46 @@
 /***/ function(module, exports) {
 
 	"use strict";
+
+	var Wall = function Wall(type, pos) {
+	  this.type = type;
+	  this.pos = pos;
+	};
+
+	Wall.prototype = {
+	  update: function update() {
+	    //nothing atm...
+	  },
+	  draw: function draw(screen) {
+	    var offset = 5; // half of the space between squares
+	    var width = 80;
+	    if (this.type === "horizontal") {
+	      screen.fillStyle = "#641";
+	      screen.fillRect(this.pos.x * width + offset, this.pos.y * width - offset, 150, 10);
+	    }
+	    if (this.type === "vertical") {
+	      screen.fillStyle = "#641";
+	      screen.fillRect(this.pos.x * width - offset, this.pos.y * width + offset, 10, 150);
+	    }
+	  },
+	  getWall: function getWall() {
+	    if (this.type === "vertical") {
+	      return {
+	        pos: { x: this.pos.x, y: this.pos.y + 1 },
+	        type: this.type
+	      };
+	    } else if (this.type === "horizontal") {
+	      return {
+	        pos: { x: this.pos.x + 1, y: this.pos.y },
+	        type: this.type
+	      };
+	    } else {
+	      return false;
+	    }
+	  }
+	};
+
+	module.exports = Wall;
 
 /***/ },
 /* 210 */
