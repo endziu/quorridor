@@ -12,8 +12,7 @@ var APP = React.createClass({
       currentTeam: 'none',
       turn: 'none',
       walls: [],
-      moves: [],
-      move: {}
+      moves: []
     }
   },
 
@@ -23,6 +22,7 @@ var APP = React.createClass({
     this.socket.on('disconnect', this.disconnect);
     this.socket.on('play', this.play);
     this.socket.on('stop', this.stop);
+    this.socket.on('error', this.error);
     this.socket.on('update', this.update);
   },
 
@@ -36,6 +36,10 @@ var APP = React.createClass({
 
   disconnect() {
     this.setState({ status: 'disconnected' });
+  },
+
+  error(err) {
+    console.log(err);
   },
 
   update(newState) {

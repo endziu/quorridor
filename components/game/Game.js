@@ -13,13 +13,15 @@ var Game = React.createClass({
   },
 
   componentDidMount() {
-    this.board = new Board();
-    this.p1  = new Player('white', {x: 4, y: 8});
-    this.p2 = new Player('black', {x: 4, y: 0});
-    this.board.init();
     this.prepareCanvas();
     this.gameSize = { x: this._canvas.width, y: this._canvas.height };
+    this.board = new Board();
+    this.board.init();
+
+    this.p1  = new Player('white', {x: 4, y: 8});
+    this.p2 = new Player('black', {x: 4, y: 0});
     this.bodies = [this.board, this.p1, this.p2];
+
     this.syncGameState();
     this.mouseUpListener();
     this.loop();
@@ -38,7 +40,6 @@ var Game = React.createClass({
   syncGameState(newState) {
     var self = this;
     var s = newState || this.props;
-    console.log(s)
   },
   
   mouseUpListener() {

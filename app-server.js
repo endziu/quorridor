@@ -19,7 +19,6 @@ var gameState = {
   players: [],
   walls: [],
   moves: [],
-  move: {},
   turn: "white"
 };
 
@@ -27,12 +26,9 @@ io.sockets.on('connection', function(socket) {
 
   socket.once('disconnect', function(){
     console.log('Disconnecting...', socket.id);
-
     connections.splice(connections.indexOf(socket), 1);
     gameState.walls = [];
     gameState.moves = [];
-    gameState.move = {};
-
     io.sockets.emit('update', gameState);
     socket.disconnect();
 
@@ -40,17 +36,12 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('move', function(payload) {
     console.log('MOVE: ', payload);
-
     gameState.moves.push(payload);
-    gameState.move = payload;
     io.sockets.emit('update', gameState);
-    gameState.move = {};
-
   });
 
   socket.on('wall', function(payload) {
     console.log('WALL: ', payload);
-
     gameState.walls.push(payload);
     io.sockets.emit('update', gameState); 
 
