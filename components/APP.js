@@ -21,6 +21,8 @@ var APP = React.createClass({
     this.socket = io('localhost:3000');
     this.socket.on('connect', this.connect);
     this.socket.on('disconnect', this.disconnect);
+    this.socket.on('play', this.play);
+    this.socket.on('stop', this.stop);
     this.socket.on('update', this.update);
   },
 

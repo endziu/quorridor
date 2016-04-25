@@ -13,7 +13,10 @@ var io = require('socket.io').listen(server);
 
 //sockets here...
 var connections = [];
+//  ........
 var gameState = {
+  audience: [],
+  players: [],
   walls: [],
   moves: [],
   move: {},
@@ -22,65 +25,42 @@ var gameState = {
 
 io.sockets.on('connection', function(socket) {
 
-  var handleDisconnect = function() {
+  socket.once('disconnect', function(){
     console.log('Disconnecting...', socket.id);
+
     connections.splice(connections.indexOf(socket), 1);
     gameState.walls = [];
     gameState.moves = [];
     gameState.move = {};
+
     io.sockets.emit('update', gameState);
     socket.disconnect();
-  };
 
-  var handleMove = function(payload) {
+  });
+
+  socket.on('move', function(payload) {
     console.log('MOVE: ', payload);
 
-    if(payload.team === "white") {
-      gameState.turn = "black";
-    } else if (payload.team === "black") {
-      gameState.turn = "white";
-    } else {
-      console.log('this should never happen ;p');
-    }
-    
     gameState.moves.push(payload);
     gameState.move = payload;
-
     io.sockets.emit('update', gameState);
     gameState.move = {};
-  }
 
-  var handleWall = function(payload) {
+  });
+
+  socket.on('wall', function(payload) {
     console.log('WALL: ', payload);
 
-    if (isInArray(payload, gameState.walls)) {
-      console.log('its in da array!!!1')
-      return;
-    }
-
-    if(payload.team === "white") {
-      gameState.turn = "black";
-    } else if (payload.team === "black") {
-      gameState.turn = "white";
-    } else {
-      console.log('this should never happen ;p');
-    }
-
     gameState.walls.push(payload);
-    io.sockets.emit('update', gameState);
-    
-  }
+    io.sockets.emit('update', gameState); 
 
-  socket.once('disconnect', handleDisconnect);
-  socket.on('move', handleMove);
-  socket.on('wall', handleWall);
+  });
 
   //add socket to connections array
   connections.push(socket);
   //log incoming socket id
   console.log("Connected: ", socket.id);
-
   io.sockets.emit('update', gameState);
 });
 
-console.log("game server is running at 'http://localhost:3000'");
+console.log("game server is running @ 'http://localhost:3000'");
