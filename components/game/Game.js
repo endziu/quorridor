@@ -57,12 +57,10 @@ var Game = React.createClass({
                 inRange(clickPos.y, coord.y, coord.y + 70));
       });
 
-      var wallClick = self.board.wallCoords.filter(function(coord) {
-        return (inRange(clickPos.x, coord.x - 5, coord.x + 5) &&
-                inRange(clickPos.y, coord.y - 5, coord.y + 5));
+      var wallClick = self.board.wallCoords.filter(function(coord){
+        return (inRange(clickPos.x, coord.x, coord.x + 10) &&
+                inRange(clickPos.y, coord.y, coord.y + 10));
       });
-
-      console.log(clickPos, wallClick[0])
 
       if(fieldClick.length === 1) {
         self.move('white', 'forward', self.p1.pos);
@@ -98,17 +96,11 @@ var Game = React.createClass({
   },
 
   move(team, dir, pos) {
-    if(team === this.props.turn) {
-      this.props.emit('move', {team:team, dir:dir, pos: pos});
-    }
+    this.props.emit('move', {team:team, dir:dir, pos: pos});
   },
 
   placeWall(team,type,pos) {
-    if(team === this.props.turn) {
-      this.bodies.push(new Wall(type,pos))
-      this.props.emit('wall', {team:team, type: type, pos: pos});  
-    }
-    
+    this.props.emit('wall', {team:team, type: type, pos: pos});  
   },
 
   addBody(body) {
