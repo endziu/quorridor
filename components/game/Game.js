@@ -38,6 +38,7 @@ var Game = React.createClass({
   syncGameState(newState) {
     var self = this;
     var s = newState || this.props;
+    console.log(s)
   },
   
   mouseUpListener() {
@@ -63,12 +64,13 @@ var Game = React.createClass({
       });
 
       if(fieldClick.length === 1) {
-        self.move('white', 'forward', self.p1.pos);
+        self.move(self.props.currentTeam, fieldClick[0].id);
       }
-      if(wallClick.length === 1 && e.which === 1) {
-        self.placeWall('black', 'horizontal', wallClick[0].id);
-      } else if (wallClick.length === 1 && e.which === 3) {
-        self.placeWall('black', 'vertical', wallClick[0].id);
+      
+      if(wallClick.length === 1 && e.which === 1) { //left click
+        self.placeWall(self.props.currentTeam, 'horizontal', wallClick[0].id);
+      } else if (wallClick.length === 1 && e.which === 3) { //right click
+        self.placeWall(self.props.currentTeam, 'vertical', wallClick[0].id);
       }
 
     }, false);
@@ -95,8 +97,8 @@ var Game = React.createClass({
     });
   },
 
-  move(team, dir, pos) {
-    this.props.emit('move', {team:team, dir:dir, pos: pos});
+  move(team, pos) {
+    this.props.emit('move', {team:team, pos: pos});
   },
 
   placeWall(team,type,pos) {
