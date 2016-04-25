@@ -68,8 +68,6 @@ io.sockets.on('connection', function(socket) {
 
     gameState.walls.push(payload);
     io.sockets.emit('update', gameState);
-
-    
     
   }
 

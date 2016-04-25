@@ -28046,8 +28046,10 @@
 	      });
 
 	      var wallClick = self.board.wallCoords.filter(function (coord) {
-	        return inRange(clickPos.x, coord.x, coord.x + 10) && inRange(clickPos.y, coord.y, coord.y + 10);
+	        return inRange(clickPos.x, coord.x - 5, coord.x + 5) && inRange(clickPos.y, coord.y - 5, coord.y + 5);
 	      });
+
+	      console.log(clickPos, wallClick[0]);
 
 	      if (fieldClick.length === 1) {
 	        self.move('white', 'forward', self.p1.pos);
@@ -28158,7 +28160,7 @@
 	    });
 	    //wall grid
 	    this.wallCoords.map(function (coord) {
-	      ctx.fillStyle = "rgba(42,165,42,0.45)"; // transparent brown
+	      ctx.fillStyle = "rgba(42,165,42,0.45)"; // transparent green
 	      ctx.fillRect(coord.x, coord.y, 10, 10);
 	    });
 	  }

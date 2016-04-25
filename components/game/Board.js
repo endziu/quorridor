@@ -44,7 +44,7 @@ Board.prototype =  {
     })
     //wall grid
     this.wallCoords.map(function(coord){
-      ctx.fillStyle = "rgba(42,165,42,0.45)"; // transparent brown
+      ctx.fillStyle = "rgba(42,165,42,0.45)"; // transparent green
       ctx.fillRect(coord.x,coord.y,10,10);
     })
 
