@@ -22,6 +22,14 @@ var gameState = {
   turn: "white"
 };
 
+var isMoveValid = function(move) {
+  return false;
+};
+
+var isWallValid = function(wall) {
+  return true;
+}
+
 io.sockets.on('connection', function(socket) {
 
   socket.once('disconnect', function(){
@@ -31,20 +39,27 @@ io.sockets.on('connection', function(socket) {
     gameState.moves = [];
     io.sockets.emit('update', gameState);
     socket.disconnect();
-
   });
 
   socket.on('move', function(payload) {
-    console.log('MOVE: ', payload);
-    gameState.moves.push(payload);
-    io.sockets.emit('update', gameState);
+    console.log('MOVE REQUEST: ', payload);
+    if(isMoveValid(payload)) {
+      gameState.moves.push(payload);
+      io.sockets.emit('update', gameState);  
+    } else {
+      console.log('illegal move!');
+      io.sockets.emit('error', {mess: "you cant go there"});
+    }
   });
 
   socket.on('wall', function(payload) {
-    console.log('WALL: ', payload);
-    gameState.walls.push(payload);
-    io.sockets.emit('update', gameState); 
-
+    console.log('WALL REQUEST: ', payload);
+    if(isWallValid(payload)) {
+      gameState.walls.push(payload);
+      io.sockets.emit('update', gameState);  
+    } else {
+      io.sockets.emit('error', {mess: "you can't place a wall here"});
+    }
   });
 
   //add socket to connections array
