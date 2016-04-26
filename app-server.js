@@ -1,20 +1,17 @@
 //import dependecies
-var express = require('express');
-var app = express();
-var isInArray = require('./components/utils/isInArray');
-
+const express = require('express');
+const app = express();
 //use public folder to serve static content
 app.use(express.static('./public'));
 app.use(express.static('./node_modules/bootstrap/dist'));
-
 //listen on port 3000 and spin up io server
-var server = app.listen(3000);
-var io = require('socket.io').listen(server);
+const server = app.listen(3000);
+const io = require('socket.io').listen(server);
 
 //sockets here...
-var connections = [];
+let connections = [];
 //  ........
-var gameState = {
+let gameState = {
   audience: [],
   players: [{team: 'white', pos:{x:4, y:8}}],
   walls: [],
@@ -22,18 +19,12 @@ var gameState = {
   turn: "white"
 };
 
-var isMoveValid = function(move, state) {
-  return true;
-};
+const isMoveValid = (move, state) => false;
+const isWallValid = (wall, state) => false;
 
-var isWallValid = function(wall, state) {
-  return true;
-};
+io.sockets.on('connection', (socket) => {
 
-
-io.sockets.on('connection', function(socket) {
-
-  socket.once('disconnect', function(){
+  socket.once('disconnect', () => {
     console.log('Disconnecting...', socket.id);
     connections.splice(connections.indexOf(socket), 1);
     gameState.walls = [];
@@ -42,24 +33,25 @@ io.sockets.on('connection', function(socket) {
     socket.disconnect();
   });
 
-  socket.on('move', function(payload) {
+  socket.on('move', (payload) => {
     console.log('MOVE REQUEST: ', payload);
     if(isMoveValid(payload, gameState)) {
       gameState.moves.push(payload);
       io.sockets.emit('update', gameState);  
     } else {
       console.log('invalid move!');
-      io.sockets.emit('error', {mess: "invalid move"});
+      io.sockets.emit('error', {mess: "invalid move!"});
     }
   });
 
-  socket.on('wall', function(payload) {
+  socket.on('wall', (payload) => {
     console.log('WALL REQUEST: ', payload);
     if(isWallValid(payload, gameState)) {
       gameState.walls.push(payload);
       io.sockets.emit('update', gameState);  
     } else {
-      io.sockets.emit('error', {mess: "you can't place a wall here"});
+      console.log('invalid move!');
+      io.sockets.emit('error', {mess: "can't do it here!"});
     }
   });
 
