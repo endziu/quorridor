@@ -16,19 +16,21 @@ var connections = [];
 //  ........
 var gameState = {
   audience: [],
-  players: [],
+  players: [{team: 'white', pos:{x:4, y:8}}],
   walls: [],
   moves: [],
   turn: "white"
 };
 
 var isMoveValid = function(move) {
-  return false;
+  return true;
 };
 
 var isWallValid = function(wall) {
   return true;
-}
+} 
+
+
 
 io.sockets.on('connection', function(socket) {
 
@@ -47,8 +49,8 @@ io.sockets.on('connection', function(socket) {
       gameState.moves.push(payload);
       io.sockets.emit('update', gameState);  
     } else {
-      console.log('illegal move!');
-      io.sockets.emit('error', {mess: "you cant go there"});
+      console.log('invalid move!');
+      io.sockets.emit('error', {mess: "invalid move"});
     }
   });
 
@@ -66,6 +68,7 @@ io.sockets.on('connection', function(socket) {
   connections.push(socket);
   //log incoming socket id
   console.log("Connected: ", socket.id);
+  //update game state
   io.sockets.emit('update', gameState);
 });
 

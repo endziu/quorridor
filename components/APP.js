@@ -8,6 +8,7 @@ var APP = React.createClass({
   getInitialState() {
     return{
       status: 'disconnected',
+      error: '',
       currentUser: 'none',
       currentTeam: 'none',
       turn: 'none',
@@ -39,10 +40,11 @@ var APP = React.createClass({
   },
 
   error(err) {
-    console.log(err);
+    this.setState({ error: err.mess });
   },
 
   update(newState) {
+    this.setState({ error: '' });
     this.setState({...newState});
   },
 
