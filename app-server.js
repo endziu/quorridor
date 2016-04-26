@@ -22,14 +22,13 @@ var gameState = {
   turn: "white"
 };
 
-var isMoveValid = function(move) {
+var isMoveValid = function(move, state) {
   return true;
 };
 
-var isWallValid = function(wall) {
+var isWallValid = function(wall, state) {
   return true;
-} 
-
+};
 
 
 io.sockets.on('connection', function(socket) {
@@ -45,7 +44,7 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('move', function(payload) {
     console.log('MOVE REQUEST: ', payload);
-    if(isMoveValid(payload)) {
+    if(isMoveValid(payload, gameState)) {
       gameState.moves.push(payload);
       io.sockets.emit('update', gameState);  
     } else {
@@ -56,7 +55,7 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('wall', function(payload) {
     console.log('WALL REQUEST: ', payload);
-    if(isWallValid(payload)) {
+    if(isWallValid(payload, gameState)) {
       gameState.walls.push(payload);
       io.sockets.emit('update', gameState);  
     } else {
