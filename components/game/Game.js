@@ -41,7 +41,7 @@ var Game = React.createClass({
     const s = newState || this.props;
     const wallIndex = s.walls.length -1;
     const lastWall = s.walls[wallIndex];
-    if(lastWall) {
+    if(lastWall !== undefined) {
       this.bodies.push(new Wall(lastWall.type, lastWall.pos))  
     }
     
