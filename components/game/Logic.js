@@ -1,25 +1,22 @@
 module.exports = {
   isWallValid: (wall, state) => {
-    const noWallAtPos = (pos,type) => {
-      return state.walls.filter((w) => {
-        if (type === "horizontal" && w.type === "vertical") {
-          return (w.pos.y === pos.y &&
-                 (w.pos.x === pos.x));
-        } else if (type === "vertical" && w.type === "horizontal") {
-           return (w.pos.x === pos.x &&
-                  (w.pos.y === pos.y));
-        } else if (type === w.type && type === "horizontal") {
-           return ((w.pos.y === pos.y && w.pos.x === pos.x) ||
-                  (w.pos.y === pos.y && w.pos.x - pos.x === 1) ||
-                  (w.pos.y === pos.y && w.pos.x - pos.x === -1));
-        } else if (type === w.type && type === "vertical") {
-           return ((w.pos.x === pos.x && w.pos.y === pos.y) ||
-                  (w.pos.x === pos.x && w.pos.y - pos.y === 1) ||
-                  (w.pos.x === pos.x && w.pos.y - pos.y === -1));
-        }
-      }).length === 0;
-    }
-    return noWallAtPos(wall.pos,wall.type);
+    return state.walls.filter((w) => {
+      if (wall.type === "horizontal" && w.type === "vertical") {
+        return  (w.pos.y === wall.pos.y &&
+                (w.pos.x === wall.pos.x));
+      } else if (wall.type === "vertical" && w.type === "horizontal") {
+         return (w.pos.x === wall.pos.x &&
+                (w.pos.y === wall.pos.y));
+      } else if (wall.type === w.type && wall.type === "horizontal") {
+         return ((w.pos.y === wall.pos.y && w.pos.x === wall.pos.x) ||
+                (w.pos.y === wall.pos.y && w.pos.x - wall.pos.x === 1) ||
+                (w.pos.y === wall.pos.y && w.pos.x - wall.pos.x === -1));
+      } else if (wall.type === w.type && wall.type === "vertical") {
+         return ((w.pos.x === wall.pos.x && w.pos.y === wall.pos.y) ||
+                (w.pos.x === wall.pos.x && w.pos.y - wall.pos.y === 1) ||
+                (w.pos.x === wall.pos.x && w.pos.y - wall.pos.y === -1));
+      }
+    }).length === 0;
   },
   isMoveValid: (move, state) => {
     // body...
