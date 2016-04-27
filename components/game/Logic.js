@@ -11,9 +11,9 @@ module.exports = {
         return isPosEqual(w, wall);
       } else if (isSameType(w, wall)) {
         if (wall.type === "horizontal") {
-          return overlapH(w,wall);
+          return isPosEqual(w,wall) || overlapH(w,wall);
         } else if (wall.type === "vertical") {
-          return overlapV(w,wall);
+          return isPosEqual(w,wall) || overlapV(w,wall);
         }
       }
     }
