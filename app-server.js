@@ -1,15 +1,18 @@
 //import dependecies
 const express = require('express');
 const app = express();
+
 //use public folder to serve static content
 app.use(express.static('./public'));
 app.use(express.static('./node_modules/bootstrap/dist'));
+
 //listen on port 3000 and spin up io server
 const server = app.listen(3000);
 const io = require('socket.io').listen(server);
 
 //sockets here...
 let connections = [];
+
 //  ........
 let gameState = {
   audience: [],
@@ -19,9 +22,10 @@ let gameState = {
   turn: "white"
 };
 
-const isMoveValid = (move, state) => false;
-const isWallValid = (wall, state) => false;
+//import game logic
+const { isMoveValid, isWallValid } = require('./components/game/Logic');
 
+//handle sockets
 io.sockets.on('connection', (socket) => {
 
   socket.once('disconnect', () => {

@@ -12,6 +12,7 @@ var APP = React.createClass({
       currentUser: 'none',
       currentTeam: 'none',
       turn: 'none',
+      players: [],
       walls: [],
       moves: []
     }
