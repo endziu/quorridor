@@ -38,12 +38,13 @@ var Game = React.createClass({
   },
 
   syncGameState(newState) {
-    var self = this;
-    var s = newState || this.props;
-  /*console.log('players :' , s.players);
-    console.log('moves: '   , s.moves);
-    console.log('walls: '   , s.walls);
-  */
+    const s = newState || this.props;
+    const wallIndex = s.walls.length -1;
+    const lastWall = s.walls[wallIndex];
+    if(lastWall) {
+      this.bodies.push(new Wall(lastWall.type, lastWall.pos))  
+    }
+    
   },
   
   mouseUpListener() {
