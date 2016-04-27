@@ -1,4 +1,10 @@
 module.exports = {
-	isWallValid: (wall, state) => true,
-	isMoveValid: (move, state) => true
+	isWallValid: (wall, state) => {
+		// body...
+		return true;
+	},
+	isMoveValid: (move, state) => {
+		// body...
+		return true;
+	}
 };
