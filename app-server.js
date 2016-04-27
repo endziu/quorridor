@@ -16,7 +16,7 @@ let connections = [];
 //  ........
 let gameState = {
   audience: [],
-  players: [{team: 'white', pos:{x:4, y:8}}],
+  players: [{team:'white', pos:{x:5, y: 9}}, {team:'black', pos:{x:5, y: 1}}],
   walls: [],
   moves: [],
   turn: "white"
