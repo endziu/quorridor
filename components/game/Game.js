@@ -49,36 +49,28 @@ var Game = React.createClass({
   
   mouseUpListener() {
     var self = this;
-
     this._canvas.addEventListener('mouseup', function(e) {
-
       var gameRect = self._canvas.getBoundingClientRect();
-
       var clickPos = {
         x: e.clientX - gameRect.left,
         y: e.clientY - gameRect.top
       };
-
       var fieldClick = self.board.fieldCoords.filter(function(coord){
         return (inRange(clickPos.x, coord.x, coord.x + 70) &&
                 inRange(clickPos.y, coord.y, coord.y + 70));
       });
-
       var wallClick = self.board.wallCoords.filter(function(coord){
         return (inRange(clickPos.x, coord.x, coord.x + 10) &&
                 inRange(clickPos.y, coord.y, coord.y + 10));
       });
-
       if(fieldClick.length === 1) {
         self.move(self.props.currentTeam, fieldClick[0].id);
       }
-      
       if(wallClick.length === 1 && e.which === 1) { //left click
         self.placeWall(self.props.currentTeam, 'horizontal', wallClick[0].id);
       } else if (wallClick.length === 1 && e.which === 3) { //right click
         self.placeWall(self.props.currentTeam, 'vertical', wallClick[0].id);
       }
-
     }, false);
   },
 
