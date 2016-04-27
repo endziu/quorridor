@@ -40,10 +40,10 @@ var Game = React.createClass({
   syncGameState(newState) {
     var self = this;
     var s = newState || this.props;
-    console.log('players :', s.players);
-    console.log('moves: ', s.moves);
-    console.log('walls: ', s.walls);
-    
+  /*console.log('players :' , s.players);
+    console.log('moves: '   , s.moves);
+    console.log('walls: '   , s.walls);
+  */
   },
   
   mouseUpListener() {
