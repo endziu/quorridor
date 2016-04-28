@@ -23,3 +23,94 @@ module.exports = {
     return true;
   }
 };
+
+
+/*
+noWallsOnPath(player, dir) {
+  if (player.team === "white") {
+    switch(dir) {
+      case "forward":
+        return this.getWalls().filter(function(wall) {
+          return wall.type === "horizontal" &&
+            (wall.pos.x === player.getPlayer().pos.x || wall.pos.x === player.getPlayer().pos.x - 1) &&
+             wall.pos.y === player.getPlayer().pos.y - 1;
+        }).length === 0;
+      case "back":
+        return this.getWalls().filter(function(wall) {
+          return wall.type === "horizontal" &&
+            (wall.pos.x === player.getPlayer().pos.x || wall.pos.x === player.getPlayer().pos.x - 1) &&
+            wall.pos.y === player.getPlayer().pos.y;
+        }).length === 0;
+      case "left":
+        return this.getWalls().filter(function(wall) {
+          return wall.type === "vertical"   &&
+            (wall.pos.y === player.getPlayer().pos.y || wall.pos.y === player.getPlayer().pos.y - 1) &&
+             wall.pos.x === player.getPlayer().pos.x - 1;
+        }).length === 0;
+      case "right":
+        return this.getWalls().filter(function(wall) {
+          return wall.type === "vertical"   &&
+            (wall.pos.y === player.getPlayer().pos.y || wall.pos.y === player.getPlayer().pos.y - 1) &&
+            wall.pos.x === player.getPlayer().pos.x;
+        }).length === 0;
+      default:
+        break;
+    }
+  } else if (player.team === "black") {
+    switch(dir) {
+      case "forward":
+        return this.getWalls().filter(function(wall) {
+          return wall.type === "horizontal" &&
+            (wall.pos.x === player.getPlayer().pos.x || wall.pos.x === player.getPlayer().pos.x - 1) &&
+             wall.pos.y === player.getPlayer().pos.y;
+        }).length === 0;
+      case "back":
+        return this.getWalls().filter(function(wall) {
+          return wall.type === "horizontal" &&
+            (wall.pos.x === player.getPlayer().pos.x || wall.pos.x === player.getPlayer().pos.x - 1) &&
+             wall.pos.y === player.getPlayer().pos.y -1;
+        }).length === 0;
+      case "left":
+        return this.getWalls().filter(function(wall) {
+          return wall.type === "vertical"   &&
+           (wall.pos.y === player.getPlayer().pos.y || wall.pos.y === player.getPlayer().pos.y - 1) &&
+            wall.pos.x === player.getPlayer().pos.x - 1;
+        }).length === 0;
+      case "right":
+        return this.getWalls().filter(function(wall) {
+          return wall.type === "vertical"   &&
+           (wall.pos.y === player.getPlayer().pos.y || wall.pos.y === player.getPlayer().pos.y - 1) &&
+            wall.pos.x === player.getPlayer().pos.x;
+         }).length === 0;
+      default:
+        break;
+    }
+  }
+},
+
+willBeOnBoard(player,dir) {
+  if (player.team === "white"){
+    switch (dir) {
+      case 'forward':
+        return player.pos.y - 1 !== -1;
+      case 'back':
+        return player.pos.y + 1 !== 9;
+      case 'left':
+        return player.pos.x - 1 !== -1;
+      case 'right':
+        return player.pos.x + 1 !== 9;
+    }
+  } else if (player.team === "black") {
+    switch (dir) {
+      case 'forward':
+        return player.pos.y + 1 !== 9;
+      case 'back':
+        return player.pos.y - 1 !== -1;
+      case 'left':
+        return player.pos.x - 1 !== -1;
+      case 'right':
+        return player.pos.x + 1 !== 9;
+    }
+  }
+}
+*/
