@@ -1,10 +1,10 @@
-var React = require('react');
-var Board = require('./Board');
-var Player = require('./Player');
-var Wall = require('./Wall');
-var inRange = require('../utils/inRange');
+const React = require('react');
+const Board = require('./Board');
+const Player = require('./Player');
+const Wall = require('./Wall');
+const inRange = require('../utils/inRange');
 
-var Game = React.createClass({
+const Game = React.createClass({
 
   render() {
     return (
@@ -48,18 +48,18 @@ var Game = React.createClass({
   },
   
   mouseUpListener() {
-    var self = this;
+    const self = this;
     this._canvas.addEventListener('mouseup', function(e) {
-      var gameRect = self._canvas.getBoundingClientRect();
-      var clickPos = {
+      const gameRect = self._canvas.getBoundingClientRect();
+      const clickPos = {
         x: e.clientX - gameRect.left,
         y: e.clientY - gameRect.top
       };
-      var fieldClick = self.board.fieldCoords.filter(function(coord){
+      const fieldClick = self.board.fieldCoords.filter(function(coord){
         return (inRange(clickPos.x, coord.x, coord.x + 70) &&
                 inRange(clickPos.y, coord.y, coord.y + 70));
       });
-      var wallClick = self.board.wallCoords.filter(function(coord){
+      const wallClick = self.board.wallCoords.filter(function(coord){
         return (inRange(clickPos.x, coord.x, coord.x + 10) &&
                 inRange(clickPos.y, coord.y, coord.y + 10));
       });

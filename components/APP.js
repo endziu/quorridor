@@ -1,12 +1,13 @@
-var React = require('react');
-var io = require('socket.io-client');
-var Header = require('./parts/Header');
-var Game = require('./game/Game');
+const React = require('react');
+const io = require('socket.io-client');
+const Header = require('./parts/Header');
+const Game = require('./game/Game');
 
-var APP = React.createClass({
+class APP extends React.Component {
 
-  getInitialState() {
-    return{
+  constructor() {
+    super();
+    this.state = {
       status: 'disconnected',
       error: '',
       currentUser: 'none',
@@ -15,39 +16,24 @@ var APP = React.createClass({
       players: [{team:'white', pos:{x:5, y: 9}}, {team:'black', pos:{x:5, y: 1}}],
       walls: [],
       moves: []
-    }
-  },
+    };
+    this.emit = this.emit.bind(this);
+  }
 
   componentWillMount() {
     this.socket = io('localhost:3000');
-    this.socket.on('connect', this.connect);
-    this.socket.on('disconnect', this.disconnect);
-    this.socket.on('play', this.play);
-    this.socket.on('stop', this.stop);
-    this.socket.on('error', this.error);
-    this.socket.on('update', this.update);
-  },
+    this.socket.on('connect',        () => this.setState({ status: 'connected' }));
+    this.socket.on('disconnect',     () => this.setState({ status: 'disconnected' }));
+    this.socket.on('error',       (err) => this.setState({ error: err.mess }));
+    this.socket.on('update', (newState) => {
+      this.setState({ error: '' });
+      this.setState({...newState});
+    });
+  }
 
   emit(eventName, payload){
     this.socket.emit(eventName, payload);
-  },
-
-  connect() {
-    this.setState({ status: 'connected' });
-  },
-
-  disconnect() {
-    this.setState({ status: 'disconnected' });
-  },
-
-  error(err) {
-    this.setState({ error: err.mess });
-  },
-
-  update(newState) {
-    this.setState({ error: '' });
-    this.setState({...newState});
-  },
+  }
 
   render() {
     return (
@@ -59,6 +45,6 @@ var APP = React.createClass({
       </div>
     );
   }
-});
+}
 
 module.exports = APP;
