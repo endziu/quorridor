@@ -1,16 +1,6 @@
 var React = require('react');
 
-var Header = React.createClass({
-
-  getDefaultProps() {
-    return {
-      status: 'disconnected',
-      error: '',
-      currentUser: 'none',
-      currentTeam: 'none',
-      turn: 'none'
-    }
-  },
+class Header extends React.Component{
 
   render() {
     return (
@@ -22,6 +12,14 @@ var Header = React.createClass({
     );
   }
 
-});
+};
+
+Header.defaultProps = {
+  status: 'disconnected',
+  error: '',
+  currentUser: 'none',
+  currentTeam: 'none',
+  turn: 'none'
+};
 
 module.exports = Header;

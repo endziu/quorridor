@@ -6,12 +6,6 @@ const inRange = require('../utils/inRange');
 
 const Game = React.createClass({
 
-  render() {
-    return (
-      <canvas id='canvas' className='game' />
-    );
-  },
-
   componentDidMount() {
     this.prepareCanvas();
     this.gameSize = { x: this._canvas.width, y: this._canvas.height };
@@ -109,6 +103,12 @@ const Game = React.createClass({
 
   removeBody(body) {
     return this.bodies.splice(this.bodies.indexOf(body), 1);
+  },
+
+  render() {
+    return (
+      <canvas id='canvas' className='game' />
+    );
   }
 
 });
