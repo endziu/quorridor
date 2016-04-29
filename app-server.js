@@ -1,11 +1,14 @@
+//import & init express
 const express = require('express');
 const app = express();
+
+//listen on port 3000 and set up io server
+const server = app.listen(3000);
+const io = require('socket.io').listen(server);
+
 //use public folder to serve static content
 app.use(express.static('./public'));
 app.use(express.static('./node_modules/bootstrap/dist'));
-//listen on port 3000 and spin up io server
-const server = app.listen(3000);
-const io = require('socket.io').listen(server);
 
 //sockets
 let connections = [];
@@ -18,6 +21,7 @@ let gameState = {
   moves: [],
   turn: "white"
 };
+
 //game logic
 const { isMoveValid, isWallValid } = require('./components/game/Logic');
 
