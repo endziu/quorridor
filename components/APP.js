@@ -6,33 +6,33 @@ import Game from './game/Game'
 class APP extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       status: 'disconnected',
       error: '',
       currentUser: 'none',
       currentTeam: 'none',
       turn: 'none',
-      players: [{team:'white', pos:{x:5, y: 9}}, {team:'black', pos:{x:5, y: 1}}],
+      players: [],
       walls: [],
       moves: []
-    };
-    this.emit = this.emit.bind(this);
+    }
+    this.emit = this.emit.bind(this)
   }
 
   componentWillMount() {
-    this.socket = io('localhost:3000');
-    this.socket.on('connect',        () => this.setState({ status: 'connected' }));
-    this.socket.on('disconnect',     () => this.setState({ status: 'disconnected' }));
-    this.socket.on('error',       (err) => this.setState({ error: err.mess }));
+    this.socket = io('localhost:3000')
+    this.socket.on('connect',        () => this.setState({ status: 'connected' }))
+    this.socket.on('disconnect',     () => this.setState({ status: 'disconnected' }))
+    this.socket.on('error',       (err) => this.setState({ error: err.mess }))
     this.socket.on('update', (newState) => {
-      this.setState({ error: '' });
-      this.setState({...newState});
-    });
+      //this.setState({ error: '' })
+      this.setState({...newState})
+    })
   }
 
   emit(eventName, payload){
-    this.socket.emit(eventName, payload);
+    this.socket.emit(eventName, payload)
   }
 
   render() {
@@ -43,7 +43,7 @@ class APP extends React.Component {
           <Game emit={this.emit} {...this.state} />
         </div>
       </div>
-    );
+    )
   }
 }
 
