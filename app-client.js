@@ -1,6 +1,6 @@
 import React from 'react'
 import APP from './components/APP'
-
+/*
 class Temp extends React.Component{
   render(){
     return(
@@ -10,5 +10,5 @@ class Temp extends React.Component{
     )
   }
 };
-
+*/
 React.render(<APP />, document.getElementById('react-container'));
