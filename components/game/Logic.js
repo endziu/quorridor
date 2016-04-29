@@ -20,7 +20,7 @@ module.exports = {
   },
   isMoveValid: (move, state) => {
     // body...
-    return true;
+    return false;
   }
 };
 
@@ -84,32 +84,6 @@ noWallsOnPath(player, dir) {
          }).length === 0;
       default:
         break;
-    }
-  }
-},
-
-willBeOnBoard(player,dir) {
-  if (player.team === "white"){
-    switch (dir) {
-      case 'forward':
-        return player.pos.y - 1 !== -1;
-      case 'back':
-        return player.pos.y + 1 !== 9;
-      case 'left':
-        return player.pos.x - 1 !== -1;
-      case 'right':
-        return player.pos.x + 1 !== 9;
-    }
-  } else if (player.team === "black") {
-    switch (dir) {
-      case 'forward':
-        return player.pos.y + 1 !== 9;
-      case 'back':
-        return player.pos.y - 1 !== -1;
-      case 'left':
-        return player.pos.x - 1 !== -1;
-      case 'right':
-        return player.pos.x + 1 !== 9;
     }
   }
 }

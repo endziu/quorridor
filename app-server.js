@@ -13,7 +13,7 @@ let connections = [];
 //gameState
 let gameState = {
   audience: [],
-  players: [{team:'white', pos:{x:5, y: 9}}, {team:'black', pos:{x:5, y: 1}}],
+  players: [],
   walls: [],
   moves: [],
   turn: "white"
@@ -48,7 +48,7 @@ io.sockets.on('connection', (socket) => {
       io.sockets.emit('update', gameState);  
     } else {
       console.log('invalid move!');
-      io.sockets.emit('error', {mess: "can't do it here!"});
+      io.sockets.emit('error', {mess: "can't place wall here"});
     }
   });
   //add socket to connections array
