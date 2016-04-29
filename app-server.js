@@ -47,7 +47,7 @@ io.sockets.on('connection', (socket) => {
       gameState.walls.push(payload);
       io.sockets.emit('update', gameState);  
     } else {
-      console.log('invalid move!');
+      console.log("can't place wall here!");
       io.sockets.emit('error', {mess: "can't place wall here"});
     }
   });
