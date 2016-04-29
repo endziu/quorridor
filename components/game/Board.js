@@ -1,4 +1,4 @@
-var Board = function() {
+const Board = function() {
   this.gameSize = {x:9, y:9};
   this.fieldOffset = 10;
   this.wallOffset = 80;
@@ -8,7 +8,7 @@ var Board = function() {
   this.fieldSize = 70;
 } 
 
-Board.prototype =  {
+Board.prototype = {
   init: function() {
     for (var i = 0; i < this.gameSize.x; i++) {
       for (var j = 0; j< this.gameSize.y; j++) {
@@ -36,18 +36,16 @@ Board.prototype =  {
   },
 
   draw: function(ctx) {
-    var self = this;
     //player grid
-    this.fieldCoords.map(function(coord){
+    this.fieldCoords.map((coord) => {
         ctx.fillStyle = "#aaa"; //grey
-        ctx.fillRect(coord.x, coord.y, self.fieldSize, self.fieldSize);
-    })
+        ctx.fillRect(coord.x, coord.y, this.fieldSize, this.fieldSize);
+    });
     //wall grid
-    this.wallCoords.map(function(coord){
+    this.wallCoords.map((coord) => {
       ctx.fillStyle = "rgba(42,165,42,0.45)"; // transparent green
       ctx.fillRect(coord.x,coord.y,10,10);
-    })
-
+    });
   }
 }
 

@@ -1,15 +1,13 @@
-var Wall = function(type,pos) {
+const Wall =  function(type,pos) {
   this.type = type;
   this.pos = pos;
 };
 
 Wall.prototype = {
-  update: function(){
-    //nothing atm...
-  },
+
   draw: function(screen) {
-    var offset = 10;
-    var width = 80;
+    const offset = 10;
+    const width = 80;
     if(this.type === "horizontal") {
       screen.fillStyle = "#641";
       screen.fillRect((this.pos.x - 1) * width + offset, this.pos.y * width, 150, 10);

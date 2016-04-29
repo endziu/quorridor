@@ -1,10 +1,15 @@
-const React = require('react');
-const Board = require('./Board');
-const Player = require('./Player');
-const Wall = require('./Wall');
-const inRange = require('../utils/inRange');
+import React from 'react'
+import Board from './Board'
+import Player from './Player'
+import Wall from './Wall'
+import inRange from '../utils/inRange'
 
-const Game = React.createClass({
+class Game extends React.Component {
+
+  constructor() {
+    super();
+    this.loop = this.loop.bind(this);
+  }
 
   componentDidMount() {
     this.prepareCanvas();
@@ -19,7 +24,7 @@ const Game = React.createClass({
     this.syncGameState();
     this.mouseUpListener();
     this.loop();
-  },
+  }
 
   prepareCanvas() {
     this._canvas = document.getElementById('canvas');
@@ -29,81 +34,74 @@ const Game = React.createClass({
     this._canvas.oncontextmenu = function (e) {
       e.preventDefault();
     };    
-  },
+  }
 
   syncGameState(newState) {
     const s = newState || this.props;
     const wallIndex = s.walls.length -1;
     const lastWall = s.walls[wallIndex];
-    if(lastWall !== undefined) {
+    if(lastWall !== void 0) {
       this.bodies.push(new Wall(lastWall.type, lastWall.pos))  
     }
-    
-  },
+  }
   
   mouseUpListener() {
-    const self = this;
-    this._canvas.addEventListener('mouseup', function(e) {
-      const gameRect = self._canvas.getBoundingClientRect();
+    this._canvas.addEventListener('mouseup', (e) => {
+      const gameRect = this._canvas.getBoundingClientRect();
       const clickPos = {
         x: e.clientX - gameRect.left,
         y: e.clientY - gameRect.top
       };
-      const fieldClick = self.board.fieldCoords.filter(function(coord){
+      const fieldClick = this.board.fieldCoords.filter((coord) => {
         return (inRange(clickPos.x, coord.x, coord.x + 70) &&
                 inRange(clickPos.y, coord.y, coord.y + 70));
       });
-      const wallClick = self.board.wallCoords.filter(function(coord){
+      const wallClick = this.board.wallCoords.filter((coord) => {
         return (inRange(clickPos.x, coord.x, coord.x + 10) &&
                 inRange(clickPos.y, coord.y, coord.y + 10));
       });
       if(fieldClick.length === 1) {
-        self.move(self.props.currentTeam, fieldClick[0].id);
+        this.move(this.props.currentTeam, fieldClick[0].id);
       }
       if(wallClick.length === 1 && e.which === 1) { //left click
-        self.placeWall(self.props.currentTeam, 'horizontal', wallClick[0].id);
+        this.placeWall(this.props.currentTeam, 'horizontal', wallClick[0].id);
       } else if (wallClick.length === 1 && e.which === 3) { //right click
-        self.placeWall(self.props.currentTeam, 'vertical', wallClick[0].id);
+        this.placeWall(this.props.currentTeam, 'vertical', wallClick[0].id);
       }
     }, false);
-  },
+  }
 
   componentWillUpdate(s) {
     this.syncGameState(s);
-  },
+  }
 
   loop() {
-    this.update();
     this.draw(this._context);
     window.requestAnimationFrame(this.loop);
-  },
-
-  update() {
-    //update body...
-  },
+  }
 
   draw(ctx) {
     ctx.clearRect(0,0,this.gameSize.x, this.gameSize.y);
-    this.bodies.map(function(body) {
+    this.bodies.map((body) => {
       body.draw(ctx);
     });
-  },
+  }
 
   move(team, pos) {
     this.props.emit('move', {team:team, pos: pos});
-  },
+  }
 
   placeWall(team,type,pos) {
     this.props.emit('wall', {team:team, type: type, pos: pos});  
-  },
+  }
 
   addBody(body) {
     this.bodies.push(body);
-  },
+  }
 
   removeBody(body) {
     return this.bodies.splice(this.bodies.indexOf(body), 1);
-  },
+  }
 
   render() {
     return (
@@ -111,6 +109,6 @@ const Game = React.createClass({
     );
   }
 
-});
+};
 
 module.exports = Game;

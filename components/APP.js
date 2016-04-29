@@ -1,7 +1,7 @@
-const React = require('react');
-const io = require('socket.io-client');
-const Header = require('./parts/Header');
-const Game = require('./game/Game');
+import React from 'react'
+import io from 'socket.io-client'
+import Header from './parts/Header'
+import Game from './game/Game'
 
 class APP extends React.Component {
 

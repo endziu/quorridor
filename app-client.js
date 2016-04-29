@@ -1,7 +1,7 @@
-var React = require('react');
-var APP = require('./components/APP');
+import React from 'react'
+import APP from './components/APP'
 
-var Temp = React.createClass({
+class Temp extends React.Component{
   render(){
     return(
       <div>
@@ -9,6 +9,6 @@ var Temp = React.createClass({
       </div>
     )
   }
-});
+};
 
 React.render(<APP />, document.getElementById('react-container'));
