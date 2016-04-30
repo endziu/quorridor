@@ -1,3 +1,5 @@
+"use strict";
+
 const Player = function(team,pos) {
   this.team = team;
   this.pos = pos;

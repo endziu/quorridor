@@ -1,3 +1,4 @@
+"use strict";
 const Wall =  function(type,pos) {
   this.type = type;
   this.pos = pos;

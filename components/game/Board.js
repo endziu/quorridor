@@ -1,3 +1,5 @@
+"use strict";
+
 const Board = function() {
   this.gameSize = {x:9, y:9};
   this.fieldOffset = 10;
@@ -6,7 +8,7 @@ const Board = function() {
   this.fieldCoords = [];
   this.wallCoords = [];
   this.fieldSize = 70;
-} 
+};
 
 Board.prototype = {
   init: function() {
@@ -22,14 +24,14 @@ Board.prototype = {
       }
     }
 
-    for (var i = 0; i < this.gameSize.x -1; i++) {
-      for (var j = 0; j< this.gameSize.y -1; j++) {
-        var x1 = i * this.gridSize + this.wallOffset;
-        var y1 = j * this.gridSize + this.wallOffset;
+    for (var k = 0; k < this.gameSize.x -1; k++) {
+      for (var l = 0; l< this.gameSize.y -1; l++) {
+        var x1 = k * this.gridSize + this.wallOffset;
+        var y1 = l * this.gridSize + this.wallOffset;
         this.wallCoords.push({
           x: x1,
           y: y1,
-          id: {x:i+1, y:j+1}
+          id: {x:k+1, y:l+1}
         });
       }
     }
@@ -47,6 +49,6 @@ Board.prototype = {
       ctx.fillRect(coord.x,coord.y,10,10);
     });
   }
-}
+};
 
 module.exports = Board;
