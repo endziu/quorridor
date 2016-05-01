@@ -1,4 +1,5 @@
 "use strict";
+
 const isPosEqual = (w1,w2) =>  w1.pos.x === w2.pos.x  && w1.pos.y === w2.pos.y;
 const isDiffType = (w1,w2) =>  w1.type  !== w2.type;
 const overlapH   = (w1,w2) => (w1.pos.y === w2.pos.y) && (w1.pos.x - w2.pos.x ===  1 || w1.pos.x - w2.pos.x === -1);
