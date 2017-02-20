@@ -1,12 +1,12 @@
 var isInArray = function (obj, list) {
-    var i;
-    for (i = 0; i < list.length; i++) {
-        if (list[i] === obj) {
-            return true;
-        }
+  var i
+  for (i = 0; i < list.length; i++) {
+    if (list[i] === obj) {
+      return true
     }
+  }
 
-    return false;
+  return false
 }
 
-module.exports = isInArray;
+module.exports = isInArray

@@ -1,13 +1,13 @@
 import React from 'react'
 
-class Header extends React.Component{
+class Header extends React.Component {
 
-  render() {
+  render () {
     return (
-      <div className="header">
-        <span id="connection-status" className={this.props.status}></span>
-        <h2 className="title">a game...</h2>
-        <p className="info">{this.props.error} | User: {this.props.currentUser} | Team: {this.props.currentTeam} | Turn: {this.props.turn} |</p>
+      <div className='header'>
+        <span id='connection-status' className={this.props.status} />
+        <h2 className='title'>a game...</h2>
+        <p className='info'>{this.props.error} | User: {this.props.currentUser} | Team: {this.props.currentTeam} | Turn: {this.props.turn} |</p>
       </div>
     )
   }
@@ -21,4 +21,4 @@ Header.defaultProps = {
   turn: 'none'
 }
 
-module.exports = Header;
+module.exports = Header

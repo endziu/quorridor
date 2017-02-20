@@ -1,6 +1,6 @@
-"use strict";
-import React from 'react';
-import APP from './components/APP';
+'use strict'
+import React from 'react'
+import APP from './components/APP'
 /*
 class Temp extends React.Component{
   render(){
@@ -12,4 +12,4 @@ class Temp extends React.Component{
   }
 };
 */
-React.render(<APP />, document.getElementById('react-container'));
+React.render(<APP />, document.getElementById('react-container'))
